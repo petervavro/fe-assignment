@@ -17,6 +17,90 @@ const handleBannerClick = () => {
     // TODO: Navigate to products or filter
 };
 
+// Product card
+const productCard = html`
+    <article class="c-solution-product-card">
+        <div class="c-solution-product-card__badges">
+            <span class="c-solution-product-card__badge c-solution-product-card__badge--discount"
+                >-27%</span
+            >
+            <span class="c-solution-product-card__badge c-solution-product-card__badge--new"
+                >Novinka</span
+            >
+        </div>
+
+        <div class="c-solution-product-card__image-wrap">
+            <img
+                class="c-solution-product-card__image"
+                src="https://placehold.co/300x196/f0f0f0/333?text=Dewalt+Pro+700"
+                alt="Dewalt Pro 700 Max"
+                loading="lazy"
+                width="300"
+                height="196"
+            />
+        </div>
+
+        <div class="c-solution-product-card__body">
+            <div class="c-solution-product-card__top">
+                <div class="c-solution-product-card__rating">
+                    <div
+                        class="c-solution-product-card__stars"
+                        aria-label="Hodnotenie: 4 z 5 hviezdičiek"
+                    >
+                        <span class="c-solution-product-card__star is-filled">★</span>
+                        <span class="c-solution-product-card__star is-filled">★</span>
+                        <span class="c-solution-product-card__star is-filled">★</span>
+                        <span class="c-solution-product-card__star is-filled">★</span>
+                        <span class="c-solution-product-card__star">★</span>
+                    </div>
+                    <span class="c-solution-product-card__review-count">(18)</span>
+                </div>
+                <h3 class="c-solution-product-card__name">Dewalt Pro 700 Max</h3>
+                <span class="c-solution-product-card__sku">DHP453RFE</span>
+            </div>
+
+            <div class="c-solution-product-card__bottom">
+                <div class="c-solution-product-card__pricing">
+                    <div class="c-solution-product-card__prices">
+                        <span class="c-solution-product-card__original-price">278 €</span>
+                        <span class="c-solution-product-card__sale-price">268,10 €</span>
+                    </div>
+                    <span class="c-solution-product-card__price-vat">255,70 € bez DPH</span>
+                </div>
+
+                <span class="c-solution-product-card__stock">Na sklade viac ako 5ks</span>
+
+                <div class="c-solution-product-card__cart">
+                    <div class="c-solution-product-card__qty">
+                        <button
+                            class="c-solution-product-card__qty-btn"
+                            aria-label="Znížiť množstvo"
+                        >
+                            −
+                        </button>
+                        <input
+                            class="c-solution-product-card__qty-input"
+                            type="number"
+                            min="1"
+                            max="99"
+                            value="1"
+                            aria-label="Množstvo"
+                        />
+                        <button
+                            class="c-solution-product-card__qty-btn"
+                            aria-label="Zvýšiť množstvo"
+                        >
+                            +
+                        </button>
+                    </div>
+
+                    <button class="c-solution-product-card__add-to-cart">Do košíka</button>
+                </div>
+            </div>
+        </div>
+    </article>
+`;
+
 // Solution main banner
 const solutionBanner = (banner) => html`
     <div class="c-solution-banner">
@@ -108,7 +192,7 @@ export const renderSolutionPage = (data) => {
                             ${data.ctaBanner ? solutionCta(data.ctaBanner) : html``}
                         </div>
 
-                        <div class="c-solution-content__products"></div>
+                        <div class="c-solution-content__products">${productCard}</div>
                     </div>
                 </div>
             </div>

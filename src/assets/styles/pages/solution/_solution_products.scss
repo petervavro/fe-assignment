@@ -1,0 +1,248 @@
+@use "./../../init" as *;
+
+.c-solution-content__products {
+    display: flex;
+    flex-direction: column;
+    gap: 2.4rem;
+}
+
+.c-solution-product-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 3.2rem 2.4rem;
+    background: #fff;
+    border: 1px solid #f1f0f6;
+    border-radius: 0.4rem;
+    box-shadow: 0 4px 8px rgb(0 0 0 / 12%);
+
+    &__badges {
+        position: absolute;
+        top: 1.2rem;
+        left: 1.2rem;
+        display: flex;
+        gap: 0.4rem;
+    }
+
+    &__badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 2.4rem;
+        padding: 0 0.8rem;
+        font-family: "DM Sans", sans-serif;
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: #fff;
+        border-radius: 0.4rem;
+
+        &--discount {
+            background: #7d2f78;
+        }
+
+        &--new {
+            background: #149721;
+        }
+    }
+
+    &__image-wrap {
+        height: 19.6rem;
+        margin-bottom: 3.2rem;
+    }
+
+    &__image {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    &__body {
+        display: flex;
+        flex-direction: column;
+        gap: 3.2rem;
+    }
+
+    &__top {
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+
+    &__rating {
+        display: flex;
+        gap: 0.4rem;
+        align-items: center;
+    }
+
+    &__stars {
+        display: flex;
+        gap: 0.2rem;
+    }
+
+    &__star {
+        font-size: 1.3rem;
+        line-height: 1;
+        color: #f1f0f6;
+
+        &.is-filled {
+            color: #f5d40e;
+        }
+    }
+
+    &__review-count {
+        font-family: "DM Sans", sans-serif;
+        font-size: 1.2rem;
+        font-weight: 400;
+        color: #070216;
+    }
+
+    &__name {
+        margin: 0;
+        font-family: "Wix Madefor Display", sans-serif;
+        font-size: 1.6rem;
+        font-weight: 800;
+        line-height: 1.25;
+        color: #070216;
+    }
+
+    &__sku {
+        font-family: "DM Sans", sans-serif;
+        font-size: 1.3rem;
+        font-weight: 400;
+        line-height: 1.6;
+        color: #555;
+    }
+
+    &__bottom {
+        display: flex;
+        flex-direction: column;
+        gap: 1.6rem;
+    }
+
+    &__pricing {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+    }
+
+    &__prices {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+        align-items: baseline;
+    }
+
+    &__original-price {
+        font-family: "DM Sans", sans-serif;
+        font-size: 1.3rem;
+        font-weight: 400;
+        color: #070216;
+        text-decoration: line-through;
+    }
+
+    &__sale-price {
+        font-family: "Wix Madefor Display", sans-serif;
+        font-size: 2rem;
+        font-weight: 800;
+        line-height: 1.26;
+        color: #dd1969;
+        text-transform: uppercase;
+    }
+
+    &__price-vat {
+        font-family: "DM Sans", sans-serif;
+        font-size: 1.3rem;
+        font-weight: 400;
+        color: #555;
+    }
+
+    &__stock {
+        font-family: "DM Sans", sans-serif;
+        font-size: 1.4rem;
+        font-weight: 600;
+        color: #149721;
+    }
+
+    &__cart {
+        display: flex;
+        gap: 1.2rem;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    &__qty {
+        display: flex;
+        gap: 0.8rem;
+        align-items: center;
+    }
+
+    &__qty-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 3.6rem;
+        height: 3.6rem;
+        font-size: 1.8rem;
+        color: #070216;
+        cursor: pointer;
+        background: #fff;
+        border: 1px solid #f1f0f6;
+        border-radius: 0.4rem;
+        transition: background 0.15s ease;
+
+        &:hover {
+            background: #f5f5f5;
+        }
+    }
+
+    &__qty-input {
+        width: 4.4rem;
+        height: 3.6rem;
+        font-family: "DM Sans", sans-serif;
+        font-size: 1.4rem;
+        font-weight: 400;
+        color: #070216;
+        text-align: center;
+        appearance: textfield;
+        background: #fff;
+        border: 1px solid #f1f0f6;
+        border-radius: 0.4rem;
+
+        &::-webkit-inner-spin-button,
+        &::-webkit-outer-spin-button {
+            margin: 0;
+            appearance: none;
+        }
+
+        &:focus {
+            outline: 2px solid #dd1969;
+            outline-offset: 1px;
+        }
+    }
+
+    &__add-to-cart {
+        display: inline-flex;
+        gap: 1rem;
+        align-items: center;
+        height: 4.5rem;
+        padding: 0 2.4rem;
+        font-family: "Wix Madefor Display", sans-serif;
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: #fff;
+        cursor: pointer;
+        background: #dd1969;
+        border: none;
+        border-radius: 0.4rem;
+        transition: background 0.2s ease;
+
+        &:hover {
+            background: #c01559;
+        }
+
+        &:active {
+            background: #a01249;
+        }
+    }
+}
