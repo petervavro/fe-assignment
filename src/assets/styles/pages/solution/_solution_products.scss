@@ -73,16 +73,17 @@
         display: flex;
         gap: 0.4rem;
         align-items: center;
+        height: 1.6rem;
     }
 
     &__stars {
         display: flex;
-        gap: 0.2rem;
+        gap: 0.4rem;
+        align-items: center;
     }
 
     &__star {
-        font-size: 1.3rem;
-        line-height: 1;
+        display: flex;
         color: #f1f0f6;
 
         &.is-filled {

@@ -5,6 +5,21 @@ import { loadData } from "../dataLoader.js";
  * Solution Page
  */
 
+// Star icon
+const starIcon = html`<svg
+    width="13"
+    height="13"
+    viewBox="0 0 13 13"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+>
+    <path
+        d="M6.50052 10.4607L2.47747 13L3.54012 8.19325L0 4.94325L4.66558 4.537L6.50052 0L8.33442 4.537L13 4.94325L9.45988 8.19325L10.5225 13L6.50052 10.4607Z"
+        fill="currentColor"
+    />
+</svg>`;
+
 // CTA button click handler
 const handleCtaClick = () => {
     console.log("CTA button clicked");
@@ -47,11 +62,11 @@ const productCard = html`
                         class="c-solution-product-card__stars"
                         aria-label="Hodnotenie: 4 z 5 hviezdičiek"
                     >
-                        <span class="c-solution-product-card__star is-filled">★</span>
-                        <span class="c-solution-product-card__star is-filled">★</span>
-                        <span class="c-solution-product-card__star is-filled">★</span>
-                        <span class="c-solution-product-card__star is-filled">★</span>
-                        <span class="c-solution-product-card__star">★</span>
+                        <span class="c-solution-product-card__star is-filled">${starIcon}</span>
+                        <span class="c-solution-product-card__star is-filled">${starIcon}</span>
+                        <span class="c-solution-product-card__star is-filled">${starIcon}</span>
+                        <span class="c-solution-product-card__star is-filled">${starIcon}</span>
+                        <span class="c-solution-product-card__star">${starIcon}</span>
                     </div>
                     <span class="c-solution-product-card__review-count">(18)</span>
                 </div>
