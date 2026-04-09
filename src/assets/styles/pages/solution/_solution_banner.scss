@@ -96,4 +96,36 @@
             }
         }
     }
+
+    @media (width <= 767px) {
+        height: 42rem;
+
+        &__overlay {
+            background: linear-gradient(0deg, rgb(0 0 0 / 100%) 8%, rgb(0 0 0 / 0%) 52%);
+        }
+
+        &__content {
+            gap: 2.4rem;
+            justify-content: flex-end;
+            padding: 2.4rem;
+
+            &__title {
+                width: auto;
+                font-size: 3.2rem;
+            }
+
+            &__description {
+                width: auto;
+                font-size: 1.4rem;
+            }
+
+            &__button {
+                padding: 1.2rem 2rem;
+
+                .sb-text {
+                    font-size: 1.3rem;
+                }
+            }
+        }
+    }
 }
