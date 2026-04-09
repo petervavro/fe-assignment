@@ -20,10 +20,7 @@ const handleBannerClick = () => {
 // Solution main banner
 const solutionBanner = (banner) => html`
     <div class="c-solution-banner">
-        <div
-            class="c-solution-banner__image"
-            style="background-image: url('${banner.imageUrl}')"
-        ></div>
+        <div class="c-solution-banner__image"></div>
         <div class="c-solution-banner__overlay"></div>
         <div class="c-solution-banner__content">
             <h1 class="c-solution-banner__content__title">${banner.title}</h1>
