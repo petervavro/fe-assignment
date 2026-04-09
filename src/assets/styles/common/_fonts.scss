@@ -1,1 +1,37 @@
 @use "./../init" as *;
+
+/* DM Sans — latin-ext */
+@font-face {
+    font-family: "DM Sans";
+    font-style: normal;
+    font-weight: 400 800;
+    font-display: swap;
+    src: url("/fonts/dm-sans-latin-ext.woff2") format("woff2");
+}
+
+/* DM Sans — latin */
+@font-face {
+    font-family: "DM Sans";
+    font-style: normal;
+    font-weight: 400 800;
+    font-display: swap;
+    src: url("/fonts/dm-sans-latin.woff2") format("woff2");
+}
+
+/* Wix Madefor Display — latin-ext */
+@font-face {
+    font-family: "Wix Madefor Display";
+    font-style: normal;
+    font-weight: 400 800;
+    font-display: swap;
+    src: url("/fonts/wix-madefor-display-latin-ext.woff2") format("woff2");
+}
+
+/* Wix Madefor Display — latin */
+@font-face {
+    font-family: "Wix Madefor Display";
+    font-style: normal;
+    font-weight: 400 800;
+    font-display: swap;
+    src: url("/fonts/wix-madefor-display-latin.woff2") format("woff2");
+}
