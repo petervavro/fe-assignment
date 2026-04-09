@@ -128,15 +128,14 @@
 
     &__prices {
         display: flex;
-        flex-wrap: wrap;
-        gap: 0.8rem;
-        align-items: baseline;
+        flex-direction: column;
     }
 
     &__original-price {
         font-family: "DM Sans", sans-serif;
         font-size: 1.3rem;
         font-weight: 400;
+        line-height: 1.308;
         color: #070216;
         text-decoration: line-through;
     }
@@ -145,7 +144,7 @@
         font-family: "Wix Madefor Display", sans-serif;
         font-size: 2rem;
         font-weight: 800;
-        line-height: 1.26;
+        line-height: 1.25;
         color: #dd1969;
         text-transform: uppercase;
     }
@@ -154,6 +153,7 @@
         font-family: "DM Sans", sans-serif;
         font-size: 1.3rem;
         font-weight: 400;
+        line-height: 1.308;
         color: #555;
     }
 

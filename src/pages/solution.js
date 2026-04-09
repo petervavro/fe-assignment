@@ -64,8 +64,8 @@ const productCard = html`
                     <div class="c-solution-product-card__prices">
                         <span class="c-solution-product-card__original-price">278 €</span>
                         <span class="c-solution-product-card__sale-price">268,10 €</span>
+                        <span class="c-solution-product-card__price-vat">255,70 € bez DPH</span>
                     </div>
-                    <span class="c-solution-product-card__price-vat">255,70 € bez DPH</span>
                 </div>
 
                 <span class="c-solution-product-card__stock">Na sklade viac ako 5ks</span>
