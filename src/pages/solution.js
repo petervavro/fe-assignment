@@ -89,50 +89,42 @@ const productCard = (product) => html`
                 <span class="c-solution-product-card__sku">${product.sku}</span>
             </div>
 
-            <div class="c-solution-product-card__bottom">
-                <div class="c-solution-product-card__pricing">
-                    <div class="c-solution-product-card__prices">
-                        <span class="c-solution-product-card__original-price"
-                            >${product.originalPrice} ${product.currency}</span
-                        >
-                        <span class="c-solution-product-card__sale-price"
-                            >${product.salePrice} ${product.currency}</span
-                        >
-                        <span class="c-solution-product-card__price-vat"
-                            >${product.priceWithoutVAT} ${product.currency} bez DPH</span
-                        >
-                    </div>
-                </div>
-
-                <span class="c-solution-product-card__stock">${product.stock}</span>
-
-                <div class="c-solution-product-card__cart">
-                    <div class="c-solution-product-card__qty">
-                        <button
-                            class="c-solution-product-card__qty-btn"
-                            aria-label="Znížiť množstvo"
-                        >
-                            −
-                        </button>
-                        <input
-                            class="c-solution-product-card__qty-input"
-                            type="number"
-                            min="1"
-                            max="99"
-                            value="1"
-                            aria-label="Množstvo"
-                        />
-                        <button
-                            class="c-solution-product-card__qty-btn"
-                            aria-label="Zvýšiť množstvo"
-                        >
-                            +
-                        </button>
-                    </div>
-
-                    <button class="c-solution-product-card__add-to-cart">Do košíka</button>
+            <div class="c-solution-product-card__pricing">
+                <div class="c-solution-product-card__prices">
+                    <span class="c-solution-product-card__original-price"
+                        >${product.originalPrice} ${product.currency}</span
+                    >
+                    <span class="c-solution-product-card__sale-price"
+                        >${product.salePrice} ${product.currency}</span
+                    >
+                    <span class="c-solution-product-card__price-vat"
+                        >${product.priceWithoutVAT} ${product.currency} bez DPH</span
+                    >
                 </div>
             </div>
+
+            <span class="c-solution-product-card__stock">${product.stock}</span>
+        </div>
+
+        <div class="c-solution-product-card__cart">
+            <div class="c-solution-product-card__qty">
+                <button class="c-solution-product-card__qty-btn" aria-label="Znížiť množstvo">
+                    −
+                </button>
+                <input
+                    class="c-solution-product-card__qty-input"
+                    type="number"
+                    min="1"
+                    max="99"
+                    value="1"
+                    aria-label="Množstvo"
+                />
+                <button class="c-solution-product-card__qty-btn" aria-label="Zvýšiť množstvo">
+                    +
+                </button>
+            </div>
+
+            <button class="c-solution-product-card__add-to-cart">Do košíka</button>
         </div>
     </article>
 `;
