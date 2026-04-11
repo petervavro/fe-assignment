@@ -109,7 +109,10 @@ const productCard = (product) => html`
 
         <div class="c-solution-product-card__cart">
             <div class="c-solution-product-card__qty">
-                <button class="c-solution-product-card__qty-btn" aria-label="Znížiť množstvo">
+                <button
+                    class="c-solution-product-card__qty-btn c-solution-product-card__qty-btn--minus"
+                    aria-label="Znížiť množstvo"
+                >
                     −
                 </button>
                 <input
@@ -120,7 +123,10 @@ const productCard = (product) => html`
                     value="1"
                     aria-label="Množstvo"
                 />
-                <button class="c-solution-product-card__qty-btn" aria-label="Zvýšiť množstvo">
+                <button
+                    class="c-solution-product-card__qty-btn c-solution-product-card__qty-btn--plus"
+                    aria-label="Zvýšiť množstvo"
+                >
                     +
                 </button>
             </div>
