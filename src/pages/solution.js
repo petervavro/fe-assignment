@@ -33,6 +33,15 @@ const handleBannerClick = () => {
     // TODO: Navigate to products or filter
 };
 
+// Qty handlers
+const getQtyInput = (e) =>
+    e.currentTarget
+        .closest(".c-solution-product-card__qty")
+        .querySelector(".c-solution-product-card__qty-input");
+
+const handleQtyDecrement = (e) => getQtyInput(e).stepDown();
+const handleQtyIncrement = (e) => getQtyInput(e).stepUp();
+
 // Product card badge
 const productBadge = (badge) => html`
     <span class="c-solution-product-card__badge c-solution-product-card__badge--${badge.type}"
@@ -112,6 +121,7 @@ const productCard = (product) => html`
                 <button
                     class="c-solution-product-card__qty-btn c-solution-product-card__qty-btn--minus"
                     aria-label="Znížiť množstvo"
+                    @click=${handleQtyDecrement}
                 >
                     −
                 </button>
@@ -126,6 +136,7 @@ const productCard = (product) => html`
                 <button
                     class="c-solution-product-card__qty-btn c-solution-product-card__qty-btn--plus"
                     aria-label="Zvýšiť množstvo"
+                    @click=${handleQtyIncrement}
                 >
                     +
                 </button>
