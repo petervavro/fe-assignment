@@ -32,17 +32,15 @@ const handleBannerClick = () => {
     // TODO: Navigate to products or filter
 };
 
+// Product card badge
+const productBadge = (badge) => html`
+    <span class="c-solution-product-card__badge c-solution-product-card__badge--${badge.type}">${badge.label}</span>
+`;
+
 // Product card
-const productCard = html`
+const productCard = (product) => html`
     <article class="c-solution-product-card">
-        <div class="c-solution-product-card__badges">
-            <span class="c-solution-product-card__badge c-solution-product-card__badge--discount"
-                >-27%</span
-            >
-            <span class="c-solution-product-card__badge c-solution-product-card__badge--new"
-                >Novinka</span
-            >
-        </div>
+        ${product.badges?.length ? html`<div class="c-solution-product-card__badges">${product.badges.map(productBadge)}</div>` : html``}
 
         <div class="c-solution-product-card__image-wrap">
             <img
@@ -207,7 +205,9 @@ export const renderSolutionPage = (data) => {
                             ${data.ctaBanner ? solutionCta(data.ctaBanner) : html``}
                         </div>
 
-                        <div class="c-solution-content__products">${productCard}</div>
+                        <div class="c-solution-content__products">
+                            ${data.products?.length ? productCard(data.products[0]) : html``}
+                        </div>
                     </div>
                 </div>
             </div>
