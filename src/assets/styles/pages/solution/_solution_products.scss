@@ -187,7 +187,7 @@
         color: #070216;
         cursor: pointer;
         background: #fff;
-        border: 1px solid #f1f0f6;
+        border: none;
         border-radius: 0.4rem;
         transition: background 0.15s ease;
 
@@ -197,8 +197,8 @@
     }
 
     &__qty-input {
-        width: 4.4rem;
-        height: 3.6rem;
+        width: 4.6rem;
+        height: 4.4rem;
         font-family: "DM Sans", sans-serif;
         font-size: 1.4rem;
         font-weight: 400;
