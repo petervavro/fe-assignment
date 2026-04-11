@@ -3,15 +3,16 @@
 @use "./solution_cta";
 
 .c-solution-content {
-    display: flex;
-    gap: 0 2.4rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2.4rem;
+    align-items: start;
 
     &__cta {
-        width: 64rem;
+        grid-column: span 2;
     }
 
     &__products {
-        flex: 1;
-        min-width: 0;
+        display: contents;
     }
 }

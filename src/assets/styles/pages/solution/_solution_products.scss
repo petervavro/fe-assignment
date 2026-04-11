@@ -1,11 +1,5 @@
 @use "./../../init" as *;
 
-.c-solution-content__products {
-    display: flex;
-    flex-direction: column;
-    gap: 2.4rem;
-}
-
 .c-solution-product-card {
     position: relative;
     display: flex;
