@@ -162,7 +162,10 @@
         font-family: "DM Sans", sans-serif;
         font-size: 1.4rem;
         font-weight: 600;
+        line-height: 1.2857;
         color: #149721;
+        text-decoration: underline solid;
+        text-underline-offset: 2px;
     }
 
     &__cart {
