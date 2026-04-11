@@ -34,19 +34,38 @@ const handleBannerClick = () => {
 
 // Product card badge
 const productBadge = (badge) => html`
-    <span class="c-solution-product-card__badge c-solution-product-card__badge--${badge.type}">${badge.label}</span>
+    <span class="c-solution-product-card__badge c-solution-product-card__badge--${badge.type}"
+        >${badge.label}</span
+    >
 `;
+
+// Product card stars
+const productStars = (rating, max = 5) => {
+    const stars = [];
+    for (let i = 1; i <= max; i++) {
+        stars.push(
+            html`<span class="c-solution-product-card__star ${i <= rating ? "is-filled" : ""}"
+                >${starIcon}</span
+            >`
+        );
+    }
+    return stars;
+};
 
 // Product card
 const productCard = (product) => html`
     <article class="c-solution-product-card">
-        ${product.badges?.length ? html`<div class="c-solution-product-card__badges">${product.badges.map(productBadge)}</div>` : html``}
+        ${product.badges?.length
+            ? html`<div class="c-solution-product-card__badges">
+                  ${product.badges.map(productBadge)}
+              </div>`
+            : html``}
 
         <div class="c-solution-product-card__image-wrap">
             <img
                 class="c-solution-product-card__image"
-                src="https://placehold.co/300x196/f0f0f0/333?text=Dewalt+Pro+700"
-                alt="Dewalt Pro 700 Max"
+                src="${product.imageUrl}"
+                alt="${product.name}"
                 loading="lazy"
                 width="300"
                 height="196"
@@ -58,30 +77,34 @@ const productCard = (product) => html`
                 <div class="c-solution-product-card__rating">
                     <div
                         class="c-solution-product-card__stars"
-                        aria-label="Hodnotenie: 4 z 5 hviezdičiek"
+                        aria-label="Hodnotenie: ${product.rating} z 5 hviezdičiek"
                     >
-                        <span class="c-solution-product-card__star is-filled">${starIcon}</span>
-                        <span class="c-solution-product-card__star is-filled">${starIcon}</span>
-                        <span class="c-solution-product-card__star is-filled">${starIcon}</span>
-                        <span class="c-solution-product-card__star is-filled">${starIcon}</span>
-                        <span class="c-solution-product-card__star">${starIcon}</span>
+                        ${productStars(product.rating)}
                     </div>
-                    <span class="c-solution-product-card__review-count">(18)</span>
+                    <span class="c-solution-product-card__review-count"
+                        >(${product.reviewCount})</span
+                    >
                 </div>
-                <h3 class="c-solution-product-card__name">Dewalt Pro 700 Max</h3>
-                <span class="c-solution-product-card__sku">DHP453RFE</span>
+                <h3 class="c-solution-product-card__name">${product.name}</h3>
+                <span class="c-solution-product-card__sku">${product.sku}</span>
             </div>
 
             <div class="c-solution-product-card__bottom">
                 <div class="c-solution-product-card__pricing">
                     <div class="c-solution-product-card__prices">
-                        <span class="c-solution-product-card__original-price">278 €</span>
-                        <span class="c-solution-product-card__sale-price">268,10 €</span>
-                        <span class="c-solution-product-card__price-vat">255,70 € bez DPH</span>
+                        <span class="c-solution-product-card__original-price"
+                            >${product.originalPrice} ${product.currency}</span
+                        >
+                        <span class="c-solution-product-card__sale-price"
+                            >${product.salePrice} ${product.currency}</span
+                        >
+                        <span class="c-solution-product-card__price-vat"
+                            >${product.priceWithoutVAT} ${product.currency} bez DPH</span
+                        >
                     </div>
                 </div>
 
-                <span class="c-solution-product-card__stock">Na sklade viac ako 5ks</span>
+                <span class="c-solution-product-card__stock">${product.stock}</span>
 
                 <div class="c-solution-product-card__cart">
                     <div class="c-solution-product-card__qty">
@@ -206,7 +229,7 @@ export const renderSolutionPage = (data) => {
                         </div>
 
                         <div class="c-solution-content__products">
-                            ${data.products?.length ? productCard(data.products[0]) : html``}
+                            ${data.products?.length ? data.products.map(productCard) : html``}
                         </div>
                     </div>
                 </div>
