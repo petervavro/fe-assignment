@@ -1,5 +1,6 @@
 import { html } from "lit-html";
 import { loadData } from "../dataLoader.js";
+import cartUrl from "../assets/images/cart-white.svg";
 
 /**
  * Solution Page
@@ -124,7 +125,9 @@ const productCard = (product) => html`
                 </button>
             </div>
 
-            <button class="c-solution-product-card__add-to-cart">Do košíka</button>
+            <button class="c-solution-product-card__add-to-cart">
+                <img src="${cartUrl}" width="24" height="23" alt="" aria-hidden="true" />Do košíka
+            </button>
         </div>
     </article>
 `;
