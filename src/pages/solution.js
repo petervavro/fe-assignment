@@ -40,7 +40,17 @@ const getQtyInput = (e) =>
         .querySelector(".c-solution-product-card__qty-input");
 
 const handleQtyDecrement = (e) => getQtyInput(e).stepDown();
-const handleQtyIncrement = (e) => getQtyInput(e).stepUp();
+const handleQtyIncrement = (e) => {
+    const input = getQtyInput(e);
+    input.stepUp();
+    const qty = parseInt(input.value, 10);
+    if (qty > 10) {
+        showNotification(
+            `Máte vybraných ${qty} kusov, maximálne povolené množstvo na jednu objednávku je 10 kusov.`,
+            "warning"
+        );
+    }
+};
 
 // Notification
 const showNotification = (message, type = "success") => {
