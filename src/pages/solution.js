@@ -75,8 +75,10 @@ const handleAddToCart = (e) => {
         return;
     }
 
+    const input = card.querySelector(".c-solution-product-card__qty-input");
     const plural = qty === 1 ? "kus" : qty < 5 ? "kusy" : "kusov";
     showNotification(`${qty} ${plural} bolo pridaných do košíka.`, "success");
+    input.value = 1;
 };
 
 // Product card badge
