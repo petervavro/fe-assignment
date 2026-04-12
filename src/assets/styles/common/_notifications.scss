@@ -37,7 +37,8 @@
     }
 
     &.is-hiding {
-        animation: notification-out 0.25s ease forwards;
+        overflow: hidden;
+        animation: notification-out 0.5s ease-in forwards;
     }
 }
 
@@ -54,12 +55,28 @@
 }
 
 @keyframes notification-out {
-    from {
+    0% {
+        max-height: 10rem;
+        padding-top: 1.4rem;
+        padding-bottom: 1.4rem;
         opacity: 1;
         translate: 0 0;
     }
 
-    to {
+    50% {
+        max-height: 10rem;
+        padding-top: 1.4rem;
+        padding-bottom: 1.4rem;
+        margin-bottom: 0;
+        opacity: 0;
+        translate: 0 -1rem;
+    }
+
+    100% {
+        max-height: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+        margin-bottom: -1.2rem;
         opacity: 0;
         translate: 0 -1rem;
     }
