@@ -8,7 +8,14 @@
     display: flex;
     flex-direction: column;
     gap: 1.2rem;
+    max-width: 36rem;
     pointer-events: none;
+
+    @media (width < $bp-tablet) {
+        right: 1.6rem;
+        left: 1.6rem;
+        max-width: none;
+    }
 }
 
 .c-notification {
