@@ -14,21 +14,26 @@
     &__badges {
         position: absolute;
         top: 1.2rem;
+        right: 1.2rem;
         left: 1.2rem;
         display: flex;
+        flex-wrap: wrap;
         gap: 0.4rem;
     }
 
     &__badge {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
+        display: inline-block;
+        max-width: 12rem;
         height: 2.4rem;
         padding: 0 0.8rem;
+        overflow: hidden;
         font-family: "DM Sans", sans-serif;
         font-size: 1.3rem;
         font-weight: 600;
+        line-height: 2.4rem;
         color: #fff;
+        text-overflow: ellipsis;
+        white-space: nowrap;
         border-radius: 0.4rem;
 
         &--discount {
