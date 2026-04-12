@@ -42,6 +42,43 @@ const getQtyInput = (e) =>
 const handleQtyDecrement = (e) => getQtyInput(e).stepDown();
 const handleQtyIncrement = (e) => getQtyInput(e).stepUp();
 
+// Notification
+const showNotification = (message, type = "success") => {
+    let container = document.querySelector(".c-notifications");
+    if (!container) {
+        container = document.createElement("div");
+        container.className = "c-notifications";
+        container.setAttribute("aria-live", "polite");
+        container.setAttribute("aria-atomic", "false");
+        document.body.appendChild(container);
+    }
+
+    const notification = document.createElement("div");
+    notification.className = `c-notification c-notification--${type}`;
+    notification.setAttribute("role", type === "warning" ? "alert" : "status");
+    notification.textContent = message;
+    container.appendChild(notification);
+
+    setTimeout(() => {
+        notification.classList.add("is-hiding");
+        notification.addEventListener("animationend", () => notification.remove(), { once: true });
+    }, 4000);
+};
+
+// Add to cart handler
+const handleAddToCart = (e) => {
+    const card = e.currentTarget.closest(".c-solution-product-card");
+    const qty = parseInt(card.querySelector(".c-solution-product-card__qty-input").value, 10);
+
+    if (qty > 10) {
+        showNotification("Maximálne množstvo na jednu objednávku je 10 kusov.", "warning");
+        return;
+    }
+
+    const plural = qty === 1 ? "kus" : qty < 5 ? "kusy" : "kusov";
+    showNotification(`${qty} ${plural} bolo pridaných do košíka.`, "success");
+};
+
 // Product card badge
 const productBadge = (badge) => html`
     <span class="c-solution-product-card__badge c-solution-product-card__badge--${badge.type}"
@@ -142,7 +179,7 @@ const productCard = (product) => html`
                 </button>
             </div>
 
-            <button class="c-solution-product-card__add-to-cart">
+            <button class="c-solution-product-card__add-to-cart" @click=${handleAddToCart}>
                 <img src="${cartUrl}" width="24" height="23" alt="" aria-hidden="true" />Do košíka
             </button>
         </div>

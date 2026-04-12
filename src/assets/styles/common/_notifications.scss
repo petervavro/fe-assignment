@@ -1,0 +1,59 @@
+@use "./../init" as *;
+
+.c-notifications {
+    position: fixed;
+    right: 2.4rem;
+    bottom: 2.4rem;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    pointer-events: none;
+}
+
+.c-notification {
+    padding: 1.4rem 2rem;
+    font-family: "DM Sans", sans-serif;
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: #fff;
+    border-radius: 0.4rem;
+    box-shadow: 0 4px 12px rgb(0 0 0 / 15%);
+    animation: notification-in 0.25s ease forwards;
+
+    &--success {
+        background: #149721;
+    }
+
+    &--warning {
+        background: #e07b00;
+    }
+
+    &.is-hiding {
+        animation: notification-out 0.25s ease forwards;
+    }
+}
+
+@keyframes notification-in {
+    from {
+        opacity: 0;
+        translate: 0 1rem;
+    }
+
+    to {
+        opacity: 1;
+        translate: 0 0;
+    }
+}
+
+@keyframes notification-out {
+    from {
+        opacity: 1;
+        translate: 0 0;
+    }
+
+    to {
+        opacity: 0;
+        translate: 0 1rem;
+    }
+}
