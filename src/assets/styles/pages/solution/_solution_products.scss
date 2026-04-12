@@ -5,6 +5,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    min-width: 0;
     padding: 3.2rem 2.4rem;
     background: #fff;
     border: 1px solid #f1f0f6;
@@ -107,11 +108,14 @@
     }
 
     &__sku {
+        overflow: hidden;
         font-family: "DM Sans", sans-serif;
         font-size: 1.3rem;
         font-weight: 400;
         line-height: 1;
         color: #555;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 
     &__pricing {
