@@ -302,6 +302,46 @@ const solutionCta = (ctaBanner) => html`
     </div>
 `;
 
+// Category card
+const categoryCard = (category) => html`
+    <article class="c-solution-category-card">
+        <img
+            class="c-solution-category-card__image"
+            src="${category.imageUrl}"
+            alt="${category.name}"
+            loading="lazy"
+        />
+        <div class="c-solution-category-card__overlay"></div>
+        <div class="c-solution-category-card__content">
+            <h3 class="c-solution-category-card__name">
+                <a class="c-solution-category-card__link" href="${category.link}"
+                    >${category.name}</a
+                >
+            </h3>
+            ${category.subcategories?.length
+                ? html`<ul class="c-solution-category-card__subcategories">
+                      ${category.subcategories.map(
+                          (sub) => html`
+                              <li class="c-solution-category-card__subcategory">
+                                  <a href="${sub.link}">${sub.name}</a>
+                              </li>
+                          `
+                      )}
+                  </ul>`
+                : nothing}
+            <a class="c-solution-category-card__cta" href="${category.link}">${category.ctaText}</a>
+        </div>
+    </article>
+`;
+
+// Categories section
+const solutionCategories = (categories) => html`
+    <div class="c-solution-categories">
+        <h2 class="c-solution-categories__title">Top kategórie produktov</h2>
+        <div class="c-solution-categories__grid">${categories.map(categoryCard)}</div>
+    </div>
+`;
+
 // Main page template
 export const renderSolutionPage = (data) => {
     if (!data) {
@@ -337,7 +377,7 @@ export const renderSolutionPage = (data) => {
 
             <div class="l-solution__categories">
                 <div class="l-container">
-                    <div class="c-solution-categories"></div>
+                    ${data.categories?.length ? solutionCategories(data.categories) : nothing}
                 </div>
             </div>
         </div>
