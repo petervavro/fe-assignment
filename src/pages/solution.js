@@ -385,7 +385,7 @@ export const renderSolutionPage = (data) => {
             </div>
 
             <div class="l-solution__categories">
-                <div class="l-container">
+                <div class="l-container is-shorter">
                     ${data.categories?.length ? solutionCategories(data.categories) : nothing}
                 </div>
             </div>
