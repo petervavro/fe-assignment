@@ -159,17 +159,17 @@ const productCard = (product) => {
 
                 <div class="c-solution-product-card__pricing">
                     <div class="c-solution-product-card__prices">
-                        ${product.originalPrice != null
+                        ${product.originalPrice != null && currency
                             ? html`<span class="c-solution-product-card__original-price"
                                   >${product.originalPrice} ${currency}</span
                               >`
                             : nothing}
-                        ${product.salePrice != null
+                        ${product.salePrice != null && currency
                             ? html`<span class="c-solution-product-card__sale-price"
                                   >${product.salePrice} ${currency}</span
                               >`
                             : nothing}
-                        ${product.priceWithoutVAT != null
+                        ${product.priceWithoutVAT != null && currency
                             ? html`<span class="c-solution-product-card__price-vat"
                                   >${product.priceWithoutVAT} ${currency} bez DPH</span
                               >`
