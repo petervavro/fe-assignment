@@ -63,6 +63,13 @@
         opacity: 1;
     }
 
+    @media (hover: none) {
+        &__action-btn {
+            pointer-events: auto;
+            opacity: 1;
+        }
+    }
+
     &__badge {
         @include text-truncate;
 
