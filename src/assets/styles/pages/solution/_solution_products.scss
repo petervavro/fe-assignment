@@ -7,19 +7,60 @@
     justify-content: space-between;
     min-width: 0;
     padding: 3.2rem 2.4rem;
+    cursor: pointer;
     background: #fff;
     border: 1px solid #f1f0f6;
     border-radius: 0.4rem;
     box-shadow: 0 4px 8px rgb(0 0 0 / 12%);
 
-    &__badges {
+    &__header {
         position: absolute;
         top: 1.2rem;
         right: 1.2rem;
         left: 1.2rem;
         display: flex;
+        justify-content: space-between;
+    }
+
+    &__badges {
+        display: flex;
         flex-wrap: wrap;
         gap: 0.4rem;
+    }
+
+    &__actions {
+        display: flex;
+        gap: 0.6rem;
+    }
+
+    &__action-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 3.2rem;
+        height: 3.2rem;
+        pointer-events: none;
+        background: #f1f0f6;
+        border: none;
+        border-radius: 0.4rem;
+        opacity: 0;
+        transition: opacity 0.2s ease;
+
+        img {
+            width: 1.6rem;
+            height: 1.6rem;
+        }
+
+        &:hover {
+            background: #e8e7f0;
+        }
+    }
+
+    &:hover &__action-btn,
+    &:focus-within &__action-btn,
+    &__action-btn:focus {
+        pointer-events: auto;
+        opacity: 1;
     }
 
     &__badge {

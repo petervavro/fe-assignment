@@ -1,6 +1,8 @@
 import { html, nothing } from "lit-html";
 import { loadData } from "../dataLoader.js";
 import cartUrl from "../assets/images/cart-white.svg";
+import heartUrl from "../assets/images/icon-heart-black.svg";
+import scaleUrl from "../assets/images/icon-scale-black.svg";
 
 /**
  * Solution Page
@@ -98,6 +100,16 @@ const productBadge = (badge) => html`
     >
 `;
 
+// Product card action button
+const handleCompare = () => console.log("Compare clicked");
+const handleWishlist = () => console.log("Wishlist clicked");
+
+const productActionBtn = (iconUrl, label, handler) => html`
+    <button class="c-solution-product-card__action-btn" aria-label="${label}" @click=${handler}>
+        <img src="${iconUrl}" alt="" aria-hidden="true" />
+    </button>
+`;
+
 // Product card stars
 const productStars = (rating, max = 5) => {
     const stars = [];
@@ -117,12 +129,18 @@ const productCard = (product) => {
     const currency = product.currency ?? "";
     return html`
         <article class="c-solution-product-card">
-            ${product.badges?.length
-                ? html`<div class="c-solution-product-card__badges">
-                      ${product.badges.map(productBadge)}
-                  </div>`
-                : nothing}
+            <div class="c-solution-product-card__header">
+                ${product.badges?.length
+                    ? html`<div class="c-solution-product-card__badges">
+                          ${product.badges.map(productBadge)}
+                      </div>`
+                    : nothing}
 
+                <div class="c-solution-product-card__actions">
+                    ${productActionBtn(scaleUrl, "Porovnať produkt", handleCompare)}
+                    ${productActionBtn(heartUrl, "Pridať do zoznamu prianí", handleWishlist)}
+                </div>
+            </div>
             <div class="c-solution-product-card__image-wrap">
                 <img
                     class="c-solution-product-card__image"
