@@ -3,15 +3,28 @@
 @use "./solution_cta";
 
 .c-solution-content {
-    display: flex;
-    gap: 0 2.4rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2.4rem;
+    align-items: stretch;
+
+    @media (width < $bp-desktop) {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    @media (width < $bp-tablet) {
+        grid-template-columns: 1fr;
+    }
 
     &__cta {
-        width: 64rem;
+        grid-column: span 2;
+
+        @media (width < $bp-tablet) {
+            grid-column: span 1;
+        }
     }
 
     &__products {
-        flex: 1;
-        min-width: 0;
+        display: contents;
     }
 }
