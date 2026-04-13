@@ -1,6 +1,7 @@
 import { html, nothing } from "lit-html";
 import { loadData } from "../dataLoader.js";
 import cartUrl from "../assets/images/cart-white.svg";
+import arrowRightUrl from "../assets/images/icon-arrow_right-white.svg";
 import heartUrl from "../assets/images/icon-heart-black.svg";
 import scaleUrl from "../assets/images/icon-scale-black.svg";
 
@@ -317,6 +318,11 @@ const categoryCard = (category) => html`
                 <a class="c-solution-category-card__link" href="${category.link}"
                     >${category.name}</a
                 >
+                ${category.productCount != null
+                    ? html`<span class="c-solution-category-card__count"
+                          >${category.productCount}</span
+                      >`
+                    : nothing}
             </h3>
             ${category.subcategories?.length
                 ? html`<ul class="c-solution-category-card__subcategories">
@@ -329,7 +335,10 @@ const categoryCard = (category) => html`
                       )}
                   </ul>`
                 : nothing}
-            <a class="c-solution-category-card__cta" href="${category.link}">${category.ctaText}</a>
+            <a class="c-solution-category-card__cta" href="${category.link}">
+                ${category.ctaText}
+                <img src="${arrowRightUrl}" alt="" aria-hidden="true" />
+            </a>
         </div>
     </article>
 `;

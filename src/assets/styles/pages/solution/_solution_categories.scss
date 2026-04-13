@@ -56,7 +56,7 @@
     &__overlay {
         position: absolute;
         inset: 0;
-        background: linear-gradient(to bottom, rgb(0 0 0 / 25%) 0%, rgb(0 0 0 / 65%) 100%);
+        background: linear-gradient(to bottom, rgb(0 0 0 / 5%) 0%, rgb(0 0 0 / 75%) 100%);
     }
 
     &__content {
@@ -64,12 +64,16 @@
         z-index: 1;
         display: flex;
         flex-direction: column;
+        justify-content: flex-end;
         height: 100%;
-        padding: 2.4rem;
+        padding: 3.2rem;
         color: #fff;
     }
 
     &__name {
+        display: flex;
+        gap: 0.8rem;
+        align-items: center;
         margin: 0 0 1.2rem;
         font-family: "Wix Madefor Display", sans-serif;
         font-size: 2rem;
@@ -88,23 +92,50 @@
         }
     }
 
+    &__count {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 1.8rem;
+        height: 1.8rem;
+        padding: 0 0.4rem;
+        font-family: "DM Sans", sans-serif;
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: #fff;
+        background: #dd1969;
+        border-radius: 10rem;
+    }
+
     &__subcategories {
         display: flex;
         flex-direction: column;
-        gap: 0.4rem;
+        gap: 0.6rem;
         padding: 0;
-        margin: 0;
+        margin: 0 0 1.6rem;
         list-style: none;
     }
 
     &__subcategory {
+        display: flex;
+        gap: 0.8rem;
+        align-items: center;
+
+        &::before {
+            flex-shrink: 0;
+            width: 1.2rem;
+            height: 0.2rem;
+            content: "";
+            background: #dd1969;
+        }
+
         a {
             position: relative;
             z-index: 2;
             font-family: "DM Sans", sans-serif;
             font-size: 1.4rem;
             font-weight: 400;
-            color: rgb(255 255 255 / 80%);
+            color: rgb(255 255 255 / 85%);
             text-decoration: none;
 
             &:hover {
@@ -117,15 +148,21 @@
     &__cta {
         position: relative;
         z-index: 2;
+        display: inline-flex;
+        gap: 0.4rem;
+        align-items: center;
         align-self: flex-start;
-        padding-top: 1.6rem;
-        margin-top: auto;
         font-family: "DM Sans", sans-serif;
         font-size: 1.4rem;
         font-weight: 600;
         color: #fff;
         text-decoration: underline;
         text-underline-offset: 3px;
+
+        img {
+            width: 1.8rem;
+            height: 1.8rem;
+        }
 
         &:hover {
             opacity: 0.8;
