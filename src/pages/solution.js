@@ -1,4 +1,4 @@
-import { html } from "lit-html";
+import { html, nothing } from "lit-html";
 import { loadData } from "../dataLoader.js";
 import cartUrl from "../assets/images/cart-white.svg";
 
@@ -78,14 +78,14 @@ const showNotification = (message, type = "success") => {
 // Add to cart handler
 const handleAddToCart = (e) => {
     const card = e.currentTarget.closest(".c-solution-product-card");
-    const qty = parseInt(card.querySelector(".c-solution-product-card__qty-input").value, 10);
+    const input = card.querySelector(".c-solution-product-card__qty-input");
+    const qty = parseInt(input.value, 10);
 
     if (qty > 10) {
         showNotification("Maximálne množstvo na jednu objednávku je 10 kusov.", "warning");
         return;
     }
 
-    const input = card.querySelector(".c-solution-product-card__qty-input");
     const plural = qty === 1 ? "kus" : qty < 5 ? "kusy" : "kusov";
     showNotification(`${qty} ${plural} bolo pridaných do košíka.`, "success");
     input.value = 1;
@@ -112,91 +112,110 @@ const productStars = (rating, max = 5) => {
 };
 
 // Product card
-const productCard = (product) => html`
-    <article class="c-solution-product-card">
-        ${product.badges?.length
-            ? html`<div class="c-solution-product-card__badges">
-                  ${product.badges.map(productBadge)}
-              </div>`
-            : html``}
+const productCard = (product) => {
+    const rating = product.rating ?? 0;
+    const currency = product.currency ?? "";
+    return html`
+        <article class="c-solution-product-card">
+            ${product.badges?.length
+                ? html`<div class="c-solution-product-card__badges">
+                      ${product.badges.map(productBadge)}
+                  </div>`
+                : nothing}
 
-        <div class="c-solution-product-card__image-wrap">
-            <img
-                class="c-solution-product-card__image"
-                src="${product.imageUrl}"
-                alt="${product.name}"
-                loading="lazy"
-                width="300"
-                height="196"
-            />
-        </div>
-
-        <div class="c-solution-product-card__body">
-            <div class="c-solution-product-card__top">
-                <div class="c-solution-product-card__rating">
-                    <div
-                        class="c-solution-product-card__stars"
-                        aria-label="Hodnotenie: ${product.rating} z 5 hviezdičiek"
-                    >
-                        ${productStars(product.rating)}
-                    </div>
-                    <span class="c-solution-product-card__review-count"
-                        >(${product.reviewCount})</span
-                    >
-                </div>
-                <h3 class="c-solution-product-card__name">${product.name}</h3>
-                <span class="c-solution-product-card__sku">${product.sku}</span>
-            </div>
-
-            <div class="c-solution-product-card__pricing">
-                <div class="c-solution-product-card__prices">
-                    <span class="c-solution-product-card__original-price"
-                        >${product.originalPrice} ${product.currency}</span
-                    >
-                    <span class="c-solution-product-card__sale-price"
-                        >${product.salePrice} ${product.currency}</span
-                    >
-                    <span class="c-solution-product-card__price-vat"
-                        >${product.priceWithoutVAT} ${product.currency} bez DPH</span
-                    >
-                </div>
-            </div>
-
-            <span class="c-solution-product-card__stock">${product.stock}</span>
-        </div>
-
-        <div class="c-solution-product-card__cart">
-            <div class="c-solution-product-card__qty">
-                <button
-                    class="c-solution-product-card__qty-btn c-solution-product-card__qty-btn--minus"
-                    aria-label="Znížiť množstvo"
-                    @click=${handleQtyDecrement}
-                >
-                    −
-                </button>
-                <input
-                    class="c-solution-product-card__qty-input"
-                    type="number"
-                    min="1"
-                    max="99"
-                    value="1"
-                    aria-label="Množstvo"
+            <div class="c-solution-product-card__image-wrap">
+                <img
+                    class="c-solution-product-card__image"
+                    src="${product.imageUrl}"
+                    alt="${product.name}"
+                    loading="lazy"
+                    width="300"
+                    height="196"
                 />
-                <button
-                    class="c-solution-product-card__qty-btn c-solution-product-card__qty-btn--plus"
-                    aria-label="Zvýšiť množstvo"
-                    @click=${handleQtyIncrement}
-                >
-                    +
-                </button>
             </div>
 
-            <button class="c-solution-product-card__add-to-cart" @click=${handleAddToCart}>
-                <img src="${cartUrl}" width="24" height="23" alt="" aria-hidden="true" />Do košíka
-            </button>
-        </div>
-    </article>
-`;
+            <div class="c-solution-product-card__body">
+                <div class="c-solution-product-card__top">
+                    <div class="c-solution-product-card__rating">
+                        <div
+                            class="c-solution-product-card__stars"
+                            aria-label="Hodnotenie: ${rating} z 5 hviezdičiek"
+                        >
+                            ${productStars(rating)}
+                        </div>
+                        ${product.reviewCount != null
+                            ? html`<span class="c-solution-product-card__review-count"
+                                  >(${product.reviewCount})</span
+                              >`
+                            : nothing}
+                    </div>
+                    <h3 class="c-solution-product-card__name">${product.name ?? ""}</h3>
+                    ${product.sku
+                        ? html`<span class="c-solution-product-card__sku" title="${product.sku}"
+                              >${product.sku}</span
+                          >`
+                        : nothing}
+                </div>
+
+                <div class="c-solution-product-card__pricing">
+                    <div class="c-solution-product-card__prices">
+                        ${product.originalPrice != null
+                            ? html`<span class="c-solution-product-card__original-price"
+                                  >${product.originalPrice} ${currency}</span
+                              >`
+                            : nothing}
+                        ${product.salePrice != null
+                            ? html`<span class="c-solution-product-card__sale-price"
+                                  >${product.salePrice} ${currency}</span
+                              >`
+                            : nothing}
+                        ${product.priceWithoutVAT != null
+                            ? html`<span class="c-solution-product-card__price-vat"
+                                  >${product.priceWithoutVAT} ${currency} bez DPH</span
+                              >`
+                            : nothing}
+                    </div>
+                </div>
+
+                ${product.stock
+                    ? html`<span class="c-solution-product-card__stock">${product.stock}</span>`
+                    : nothing}
+            </div>
+
+            <div class="c-solution-product-card__cart">
+                <div class="c-solution-product-card__qty">
+                    <button
+                        class="c-solution-product-card__qty-btn c-solution-product-card__qty-btn--minus"
+                        aria-label="Znížiť množstvo"
+                        @click=${handleQtyDecrement}
+                    >
+                        −
+                    </button>
+                    <input
+                        class="c-solution-product-card__qty-input"
+                        type="number"
+                        min="1"
+                        max="99"
+                        value="1"
+                        aria-label="Množstvo"
+                    />
+                    <button
+                        class="c-solution-product-card__qty-btn c-solution-product-card__qty-btn--plus"
+                        aria-label="Zvýšiť množstvo"
+                        @click=${handleQtyIncrement}
+                    >
+                        +
+                    </button>
+                </div>
+
+                <button class="c-solution-product-card__add-to-cart" @click=${handleAddToCart}>
+                    <img src="${cartUrl}" width="24" height="23" alt="" aria-hidden="true" />Do
+                    košíka
+                </button>
+            </div>
+        </article>
+    `;
+};
 
 // Solution main banner
 const solutionBanner = (banner) => html`
@@ -279,18 +298,20 @@ export const renderSolutionPage = (data) => {
     return html`
         <div class="l-solution">
             <div class="l-solution__banner">
-                <div class="l-container">${data.banner ? solutionBanner(data.banner) : html``}</div>
+                <div class="l-container">
+                    ${data.banner ? solutionBanner(data.banner) : nothing}
+                </div>
             </div>
 
             <div class="l-solution__content">
                 <div class="l-container is-shorter">
                     <div class="c-solution-content">
                         <div class="c-solution-content__cta">
-                            ${data.ctaBanner ? solutionCta(data.ctaBanner) : html``}
+                            ${data.ctaBanner ? solutionCta(data.ctaBanner) : nothing}
                         </div>
 
                         <div class="c-solution-content__products">
-                            ${data.products?.length ? data.products.map(productCard) : html``}
+                            ${data.products?.length ? data.products.map(productCard) : nothing}
                         </div>
                     </div>
                 </div>
