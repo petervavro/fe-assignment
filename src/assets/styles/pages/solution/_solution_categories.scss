@@ -1,32 +1,134 @@
 @use "./../../init" as *;
 
 .c-solution-categories {
+    padding: 6rem 0;
+
     &__title {
+        margin: 0 0 3.2rem;
+        font-family: "Wix Madefor Display", sans-serif;
+        font-size: 2.8rem;
+        font-weight: 800;
+        line-height: 1.2;
+        color: #070216;
     }
 
     &__grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.6rem;
+
+        @media (width < $bp-desktop) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @media (width < $bp-tablet) {
+            grid-template-columns: 1fr;
+        }
     }
 }
 
 .c-solution-category-card {
+    position: relative;
+    min-height: 26rem;
+    overflow: hidden;
+    border-radius: 0.8rem;
+
+    &:nth-child(2) {
+        grid-column: span 2;
+    }
+
+    &:nth-child(3) {
+        grid-row: span 2;
+    }
+
+    &:nth-child(4) {
+        grid-column: span 2;
+    }
+
     &__image {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
     }
 
     &__overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to bottom, rgb(0 0 0 / 25%) 0%, rgb(0 0 0 / 65%) 100%);
     }
 
     &__content {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        padding: 2.4rem;
+        color: #fff;
     }
 
     &__name {
+        margin: 0 0 1.2rem;
+        font-family: "Wix Madefor Display", sans-serif;
+        font-size: 2rem;
+        font-weight: 800;
+        line-height: 1.2;
+    }
+
+    &__link {
+        color: inherit;
+        text-decoration: none;
+
+        &::after {
+            position: absolute;
+            inset: 0;
+            content: "";
+        }
     }
 
     &__subcategories {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+        padding: 0;
+        margin: 0;
+        list-style: none;
     }
 
     &__subcategory {
+        a {
+            position: relative;
+            z-index: 2;
+            font-family: "DM Sans", sans-serif;
+            font-size: 1.4rem;
+            font-weight: 400;
+            color: rgb(255 255 255 / 80%);
+            text-decoration: none;
+
+            &:hover {
+                color: #fff;
+                text-decoration: underline;
+            }
+        }
     }
 
     &__cta {
+        position: relative;
+        z-index: 2;
+        align-self: flex-start;
+        padding-top: 1.6rem;
+        margin-top: auto;
+        font-family: "DM Sans", sans-serif;
+        font-size: 1.4rem;
+        font-weight: 600;
+        color: #fff;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+
+        &:hover {
+            opacity: 0.8;
+        }
     }
 }
