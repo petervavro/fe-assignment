@@ -96,6 +96,7 @@ body.has-modal {
     }
 
     &__field {
+        position: relative;
         display: flex;
         flex: 1;
         flex-direction: column;
@@ -182,9 +183,14 @@ body.has-modal {
     }
 
     &__error {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        padding-top: 0.4rem;
         font-family: "DM Sans", sans-serif;
         font-size: 1.2rem;
         font-weight: 500;
+        line-height: 1.5;
         color: #dd1969;
     }
 

@@ -1,5 +1,6 @@
 import { html, nothing } from "lit-html";
 import { loadData } from "../dataLoader.js";
+import { validateEmail } from "../api/emailApi.js";
 import cartUrl from "../assets/images/cart-white.svg";
 import arrowRightUrl from "../assets/images/icon-arrow_right-white_v2.svg";
 import heartUrl from "../assets/images/icon-heart-black.svg";
@@ -74,6 +75,49 @@ const handlePhoneFocus = (e) => {
     setTimeout(() => input.setSelectionRange(pos, pos), 0);
 };
 
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const emailCache = new Map();
+let emailValidating = null;
+
+const setEmailError = (input, message) => {
+    input.classList.toggle("is-invalid", !!message);
+    input.setAttribute("aria-invalid", message ? "true" : "false");
+    const error = document.getElementById("modal-email-error");
+    if (error) error.textContent = message ?? "";
+};
+
+const handleEmailBlur = async (e) => {
+    const input = e.currentTarget;
+    const email = input.value.trim();
+
+    if (!email) {
+        setEmailError(input, null);
+        return;
+    }
+
+    if (!EMAIL_REGEX.test(email)) {
+        setEmailError(input, "Zadajte platný e-mail.");
+        return;
+    }
+
+    if (emailCache.has(email)) {
+        setEmailError(input, emailCache.get(email));
+        return;
+    }
+
+    if (emailValidating === email) return;
+
+    emailValidating = email;
+    const result = await validateEmail(email);
+    emailValidating = null;
+
+    if (input.value.trim() !== email) return;
+
+    const errorMsg = result.success ? null : result.message || "E-mail sa nepodarilo overiť.";
+    emailCache.set(email, errorMsg);
+    setEmailError(input, errorMsg);
+};
+
 // Modal template
 const modalTemplate = () => html`
     <div class="c-modal-overlay">
@@ -98,7 +142,16 @@ const modalTemplate = () => html`
                         name="email"
                         type="email"
                         autocomplete="email"
+                        aria-describedby="modal-email-error"
+                        aria-invalid="false"
+                        @blur=${handleEmailBlur}
                     />
+                    <span
+                        id="modal-email-error"
+                        class="c-modal__error"
+                        role="alert"
+                        aria-live="assertive"
+                    ></span>
                 </div>
                 <div class="c-modal__row">
                     <div class="c-modal__field">
