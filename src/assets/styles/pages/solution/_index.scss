@@ -9,4 +9,13 @@
     &__banner {
         margin-bottom: 10rem;
     }
+
+    &__content,
+    &__categories {
+        @media (width >= $bp-tablet) {
+            .l-container {
+                padding: 0;
+            }
+        }
+    }
 }
