@@ -6,12 +6,12 @@ import arrowRightUrl from "../assets/images/icon-arrow_right-white_v2.svg";
 import heartUrl from "../assets/images/icon-heart-black.svg";
 import scaleUrl from "../assets/images/icon-scale-black.svg";
 import closeUrl from "../assets/images/icon-close-black.svg";
+import checkmarkUrl from "../assets/images/icon-checkmark-green.svg";
 
 /**
  * Solution Page
  */
 
-// Star icon
 const starIcon = html`<svg
     width="13"
     height="13"
@@ -214,8 +214,24 @@ const handleFormSubmit = (e) => {
         return;
     }
 
-    // TODO: success state
+    render(modalSuccessTemplate(), modalEl);
+    requestAnimationFrame(() => modalEl.querySelector("h3").focus());
 };
+
+const modalSuccessTemplate = () => html`
+    <div class="c-modal-overlay" @click=${handleOverlayClick}>
+        <div class="c-modal" role="dialog" aria-modal="true" aria-labelledby="modal-success-title">
+            <button class="c-modal__close" aria-label="Zavrieť" @click=${closeModal}>
+                <img src="${closeUrl}" alt="" aria-hidden="true" />
+            </button>
+            <div class="c-modal__success" role="status">
+                <img src="${checkmarkUrl}" alt="" aria-hidden="true" width="56" height="56" />
+                <h3 id="modal-success-title" tabindex="-1">Ďakujeme!</h3>
+                <p>Váš záujem sme zaregistrovali. Čoskoro sa vám ozveme s tajnou ponukou.</p>
+            </div>
+        </div>
+    </div>
+`;
 
 // Modal template
 const modalTemplate = () => html`
