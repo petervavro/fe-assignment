@@ -1,4 +1,4 @@
-import { html, nothing } from "lit-html";
+import { html, nothing, render } from "lit-html";
 import { loadData } from "../dataLoader.js";
 import { validateEmail } from "../api/emailApi.js";
 import cartUrl from "../assets/images/cart-white.svg";
@@ -120,9 +120,9 @@ const handleEmailBlur = async (e) => {
 
 // Modal template
 const modalTemplate = () => html`
-    <div class="c-modal-overlay">
+    <div class="c-modal-overlay" @click=${handleOverlayClick}>
         <div class="c-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-            <button class="c-modal__close" aria-label="Zavrieť">
+            <button class="c-modal__close" aria-label="Zavrieť" @click=${closeModal}>
                 <img src="${closeUrl}" alt="" aria-hidden="true" />
             </button>
             <div class="c-modal__header">
@@ -214,10 +214,37 @@ const modalTemplate = () => html`
     </div>
 `;
 
+let modalEl = null;
+
+const closeModal = () => {
+    if (!modalEl) return;
+    const el = modalEl;
+    modalEl = null;
+    document.removeEventListener("keydown", handleModalKeydown);
+    document.body.classList.remove("has-modal");
+    const overlay = el.querySelector(".c-modal-overlay");
+    overlay.classList.add("is-closing");
+    const remove = () => el.remove();
+    overlay.addEventListener("animationend", remove, { once: true });
+    setTimeout(remove, 300);
+};
+
+const handleOverlayClick = (e) => {
+    if (e.target === e.currentTarget) closeModal();
+};
+
+const handleModalKeydown = (e) => {
+    if (e.key === "Escape") closeModal();
+};
+
 // CTA button click handler
 const handleCtaClick = () => {
-    console.log("CTA button clicked");
-    // TODO: open modal
+    if (modalEl) return;
+    modalEl = document.createElement("div");
+    document.body.appendChild(modalEl);
+    document.body.classList.add("has-modal");
+    render(modalTemplate(), modalEl);
+    document.addEventListener("keydown", handleModalKeydown);
 };
 
 // Banner button click handler
@@ -582,8 +609,6 @@ export const renderSolutionPage = (data) => {
                     ${data.categories?.length ? solutionCategories(data.categories) : nothing}
                 </div>
             </div>
-
-            ${modalTemplate()}
         </div>
     `;
 };
