@@ -14,8 +14,8 @@
 
     &__grid {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 1.8rem;
+        grid-template-columns: 338px 240px 338px 1fr;
+        gap: 2rem;
 
         @media (width < $bp-desktop) {
             grid-template-columns: repeat(2, 1fr);
