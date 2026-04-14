@@ -26,11 +26,11 @@ const starIcon = html`<svg
     />
 </svg>`;
 
-// Phone mask
 const PHONE_PREFIX = "+421 ";
+const PHONE_DIGIT_COUNT = 9;
 
 const buildPhoneValue = (digits) => {
-    const d = digits.slice(0, 9).padEnd(9, "_");
+    const d = digits.slice(0, PHONE_DIGIT_COUNT).padEnd(PHONE_DIGIT_COUNT, "_");
     return PHONE_PREFIX + `${d.slice(0, 3)} ${d.slice(3, 6)} ${d.slice(6, 9)}`;
 };
 
@@ -38,7 +38,7 @@ const getPhoneDigits = (value) =>
     value
         .slice(PHONE_PREFIX.length)
         .replace(/[^0-9]/g, "")
-        .slice(0, 9);
+        .slice(0, PHONE_DIGIT_COUNT);
 
 const phoneCursorPos = (digitCount) => {
     if (digitCount <= 3) return PHONE_PREFIX.length + digitCount;
@@ -79,10 +79,11 @@ const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const emailCache = new Map();
 let emailValidating = null;
 
-const setEmailError = (input, message) => {
+const setFieldError = (input, message) => {
     input.classList.toggle("is-invalid", !!message);
     input.setAttribute("aria-invalid", message ? "true" : "false");
-    const error = document.getElementById("modal-email-error");
+    const errorId = input.getAttribute("aria-describedby");
+    const error = errorId ? document.getElementById(errorId) : null;
     if (error) error.textContent = message ?? "";
 };
 
@@ -91,17 +92,17 @@ const handleEmailBlur = async (e) => {
     const email = input.value.trim();
 
     if (!email) {
-        setEmailError(input, null);
+        setFieldError(input, null);
         return;
     }
 
     if (!EMAIL_REGEX.test(email)) {
-        setEmailError(input, "Zadajte platný e-mail.");
+        setFieldError(input, "Zadajte platný e-mail.");
         return;
     }
 
     if (emailCache.has(email)) {
-        setEmailError(input, emailCache.get(email));
+        setFieldError(input, emailCache.get(email));
         return;
     }
 
@@ -115,7 +116,56 @@ const handleEmailBlur = async (e) => {
 
     const errorMsg = result.success ? null : result.message || "E-mail sa nepodarilo overiť.";
     emailCache.set(email, errorMsg);
-    setEmailError(input, errorMsg);
+    setFieldError(input, errorMsg);
+};
+
+const handleFormSubmit = (e) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    let firstInvalid = null;
+
+    const emailInput = form.elements.email;
+    const email = emailInput.value.trim();
+    if (!email) {
+        setFieldError(emailInput, "E-mail je povinný.");
+        firstInvalid ??= emailInput;
+    } else if (!EMAIL_REGEX.test(email)) {
+        setFieldError(emailInput, "Zadajte platný e-mail.");
+        firstInvalid ??= emailInput;
+    } else if (emailInput.getAttribute("aria-invalid") === "true") {
+        firstInvalid ??= emailInput;
+    }
+
+    const nameInput = form.elements.name;
+    if (!nameInput.value.trim()) {
+        setFieldError(nameInput, "Meno a priezvisko je povinné.");
+        firstInvalid ??= nameInput;
+    } else {
+        setFieldError(nameInput, null);
+    }
+
+    const phoneInput = form.elements.phone;
+    if (getPhoneDigits(phoneInput.value).length < PHONE_DIGIT_COUNT) {
+        setFieldError(phoneInput, "Zadajte platné telefónne číslo.");
+        firstInvalid ??= phoneInput;
+    } else {
+        setFieldError(phoneInput, null);
+    }
+
+    const sourceInput = form.elements.source;
+    if (!sourceInput.value) {
+        setFieldError(sourceInput, "Vyberte možnosť.");
+        firstInvalid ??= sourceInput;
+    } else {
+        setFieldError(sourceInput, null);
+    }
+
+    if (firstInvalid) {
+        firstInvalid.focus();
+        return;
+    }
+
+    // TODO: success state
 };
 
 // Modal template
@@ -131,7 +181,7 @@ const modalTemplate = () => html`
                 </h2>
                 <span class="c-modal__required">* povinné polia</span>
             </div>
-            <form class="c-modal__form" novalidate>
+            <form class="c-modal__form" @submit=${handleFormSubmit} novalidate>
                 <div class="c-modal__field">
                     <label class="c-modal__label" for="modal-email"
                         >E-mail <span class="c-modal__required-mark">*</span></label
@@ -164,7 +214,15 @@ const modalTemplate = () => html`
                             name="name"
                             type="text"
                             autocomplete="name"
+                            aria-describedby="modal-name-error"
+                            aria-invalid="false"
                         />
+                        <span
+                            id="modal-name-error"
+                            class="c-modal__error"
+                            role="alert"
+                            aria-live="assertive"
+                        ></span>
                     </div>
                     <div class="c-modal__field">
                         <label class="c-modal__label" for="modal-phone"
@@ -177,11 +235,19 @@ const modalTemplate = () => html`
                             name="phone"
                             type="tel"
                             autocomplete="tel"
+                            aria-describedby="modal-phone-error"
+                            aria-invalid="false"
                             .value=${buildPhoneValue("")}
                             @input=${handlePhoneInput}
                             @keydown=${handlePhoneKeydown}
                             @focus=${handlePhoneFocus}
                         />
+                        <span
+                            id="modal-phone-error"
+                            class="c-modal__error"
+                            role="alert"
+                            aria-live="assertive"
+                        ></span>
                     </div>
                 </div>
                 <div class="c-modal__field">
@@ -190,7 +256,13 @@ const modalTemplate = () => html`
                         <span class="c-modal__required-mark">*</span></label
                     >
                     <div class="c-modal__select-wrap">
-                        <select class="c-modal__select" id="modal-source" name="source">
+                        <select
+                            class="c-modal__select"
+                            id="modal-source"
+                            name="source"
+                            aria-describedby="modal-source-error"
+                            aria-invalid="false"
+                        >
                             <option value="">Vyberte možnosť</option>
                             <option value="web">Priamo z vášho webu</option>
                             <option value="social">Sociálne siete</option>
@@ -198,6 +270,12 @@ const modalTemplate = () => html`
                             <option value="other">Iné</option>
                         </select>
                     </div>
+                    <span
+                        id="modal-source-error"
+                        class="c-modal__error"
+                        role="alert"
+                        aria-live="assertive"
+                    ></span>
                 </div>
                 <div class="c-modal__footer">
                     <button class="c-modal__submit" type="submit">
