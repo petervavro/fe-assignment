@@ -312,7 +312,6 @@ const categoryCard = (category) => html`
             alt="${category.name}"
             loading="lazy"
         />
-        <div class="c-solution-category-card__overlay"></div>
         <div class="c-solution-category-card__content">
             <h3 class="c-solution-category-card__name">
                 <a class="c-solution-category-card__link" href="${category.link}"

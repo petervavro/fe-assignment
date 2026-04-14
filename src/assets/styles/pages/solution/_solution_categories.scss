@@ -75,12 +75,6 @@
         object-fit: cover;
     }
 
-    &__overlay {
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(to bottom, rgb(0 0 0 / 5%) 0%, rgb(0 0 0 / 75%) 100%);
-    }
-
     &__content {
         position: relative;
         z-index: 1;
