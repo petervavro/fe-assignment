@@ -55,7 +55,7 @@
     }
 
     &:nth-child(2),
-    &:nth-child(4) {
+    &:nth-child(3) {
         .c-solution-category-card__subcategories {
             display: grid;
             grid-template-rows: repeat(3, auto);
