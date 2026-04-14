@@ -41,6 +41,7 @@
         color: #fff;
 
         &__title {
+            max-width: 42rem;
             margin: 0;
             font-family: "Wix Madefor Display", sans-serif;
             font-size: 3.5rem;
@@ -49,6 +50,7 @@
         }
 
         &__description {
+            max-width: 42rem;
             margin: 0;
             font-family: "DM Sans", sans-serif;
             font-size: 1.6rem;
