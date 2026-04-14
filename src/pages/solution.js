@@ -361,6 +361,11 @@ const modalTemplate = () => html`
 `;
 
 let modalEl = null;
+let modalTrigger = null;
+
+const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+const getFocusable = () => (modalEl ? [...modalEl.querySelectorAll(FOCUSABLE)] : []);
 
 const closeModal = () => {
     if (!modalEl) return;
@@ -368,6 +373,8 @@ const closeModal = () => {
     modalEl = null;
     document.removeEventListener("keydown", handleModalKeydown);
     document.body.classList.remove("has-modal");
+    modalTrigger?.focus();
+    modalTrigger = null;
     const overlay = el.querySelector(".c-modal-overlay");
     overlay.classList.add("is-closing");
     const remove = () => el.remove();
@@ -380,17 +387,38 @@ const handleOverlayClick = (e) => {
 };
 
 const handleModalKeydown = (e) => {
-    if (e.key === "Escape") closeModal();
+    if (e.key === "Escape") {
+        closeModal();
+        return;
+    }
+    if (e.key !== "Tab") return;
+    const focusable = getFocusable();
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (e.shiftKey) {
+        if (document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+        }
+    } else {
+        if (document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+        }
+    }
 };
 
 // CTA button click handler
-const handleCtaClick = () => {
+const handleCtaClick = (e) => {
     if (modalEl) return;
+    modalTrigger = e.currentTarget;
     modalEl = document.createElement("div");
     document.body.appendChild(modalEl);
     document.body.classList.add("has-modal");
     render(modalTemplate(), modalEl);
     document.addEventListener("keydown", handleModalKeydown);
+    requestAnimationFrame(() => getFocusable()[0]?.focus());
 };
 
 // Banner button click handler
@@ -645,7 +673,7 @@ const solutionCta = (ctaBanner) => html`
 
             <div class="c-solution-cta__content__description">${ctaBanner.description}</div>
 
-            <button class="c-solution-cta__content__button" @click=${() => handleCtaClick()}>
+            <button class="c-solution-cta__content__button" @click=${handleCtaClick}>
                 <span class="sc-text">${ctaBanner.ctaText}</span>
 
                 <svg
