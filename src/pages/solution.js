@@ -25,6 +25,55 @@ const starIcon = html`<svg
     />
 </svg>`;
 
+// Phone mask
+const PHONE_PREFIX = "+421 ";
+
+const buildPhoneValue = (digits) => {
+    const d = digits.slice(0, 9).padEnd(9, "_");
+    return PHONE_PREFIX + `${d.slice(0, 3)} ${d.slice(3, 6)} ${d.slice(6, 9)}`;
+};
+
+const getPhoneDigits = (value) =>
+    value
+        .slice(PHONE_PREFIX.length)
+        .replace(/[^0-9]/g, "")
+        .slice(0, 9);
+
+const phoneCursorPos = (digitCount) => {
+    if (digitCount <= 3) return PHONE_PREFIX.length + digitCount;
+    if (digitCount <= 6) return PHONE_PREFIX.length + digitCount + 1;
+    return PHONE_PREFIX.length + digitCount + 2;
+};
+
+const handlePhoneInput = (e) => {
+    const input = e.currentTarget;
+    const digits = getPhoneDigits(input.value);
+    input.value = buildPhoneValue(digits);
+    const pos = phoneCursorPos(digits.length);
+    input.setSelectionRange(pos, pos);
+};
+
+const handlePhoneKeydown = (e) => {
+    const input = e.currentTarget;
+    if (
+        (e.key === "Backspace" || e.key === "Delete") &&
+        input.selectionStart <= PHONE_PREFIX.length &&
+        input.selectionEnd <= PHONE_PREFIX.length
+    ) {
+        e.preventDefault();
+    }
+};
+
+const handlePhoneFocus = (e) => {
+    const input = e.currentTarget;
+    if (!input.value.startsWith(PHONE_PREFIX)) {
+        input.value = buildPhoneValue("");
+    }
+    const digits = getPhoneDigits(input.value);
+    const pos = phoneCursorPos(digits.length);
+    setTimeout(() => input.setSelectionRange(pos, pos), 0);
+};
+
 // Modal template
 const modalTemplate = () => html`
     <div class="c-modal-overlay">
@@ -75,7 +124,10 @@ const modalTemplate = () => html`
                             name="phone"
                             type="tel"
                             autocomplete="tel"
-                            placeholder="+421"
+                            .value=${buildPhoneValue("")}
+                            @input=${handlePhoneInput}
+                            @keydown=${handlePhoneKeydown}
+                            @focus=${handlePhoneFocus}
                         />
                     </div>
                 </div>
