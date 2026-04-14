@@ -100,6 +100,10 @@
         margin: -3.2rem -2rem;
         border-radius: 0;
 
+        &__image {
+            background-position-x: 31%;
+        }
+
         &__overlay {
             background: linear-gradient(0deg, rgb(0 0 0 / 100%) 8%, rgb(0 0 0 / 0%) 52%);
         }
