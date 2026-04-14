@@ -754,13 +754,13 @@ export const renderSolutionPage = (data) => {
 
     return html`
         <div class="l-solution">
-            <div class="l-solution__banner">
+            <section class="l-solution__banner" aria-label="Hlavný banner">
                 <div class="l-container">
                     ${data.banner ? solutionBanner(data.banner) : nothing}
                 </div>
-            </div>
+            </section>
 
-            <div class="l-solution__content">
+            <section class="l-solution__content" aria-label="Ponuka a produkty">
                 <div class="l-container is-shorter">
                     <div class="c-solution-content">
                         <div class="c-solution-content__cta">
@@ -772,13 +772,13 @@ export const renderSolutionPage = (data) => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
 
-            <div class="l-solution__categories">
+            <section class="l-solution__categories" aria-label="Kategórie produktov">
                 <div class="l-container is-shorter">
                     ${data.categories?.length ? solutionCategories(data.categories) : nothing}
                 </div>
-            </div>
+            </section>
         </div>
     `;
 };
