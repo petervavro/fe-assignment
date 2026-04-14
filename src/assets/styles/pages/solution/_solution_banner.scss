@@ -95,7 +95,7 @@
         }
     }
 
-    @media (width <= 767px) {
+    @media (width < $bp-tablet) {
         height: 42rem;
         margin: -3.2rem -2rem;
         border-radius: 0;
