@@ -105,10 +105,11 @@ const handlePhoneInput = (e) => {
     input.value = buildPhoneValue(digits);
     const pos = phoneCursorPos(digits.length);
     input.setSelectionRange(pos, pos);
-    if (hasError(input)) {
+    if (digits.length > 0) {
         setFieldError(
             input,
-            digits.length < PHONE_DIGIT_COUNT ? "Zadajte platné telefónne číslo." : null
+            digits.length < PHONE_DIGIT_COUNT ? "Zadajte platné telefónne číslo." : null,
+            { announceDelay: 600 }
         );
     }
 };
@@ -144,12 +145,26 @@ const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const emailCache = new Map();
 let emailValidating = null;
 
-const setFieldError = (input, message) => {
+const liveRegionTimers = new WeakMap();
+
+const setFieldError = (input, message, { announceDelay = 0 } = {}) => {
     input.classList.toggle("is-invalid", !!message);
     input.setAttribute("aria-invalid", message ? "true" : "false");
     const errorId = input.getAttribute("aria-describedby");
     const error = errorId ? document.getElementById(errorId) : null;
-    if (error) error.textContent = message ?? "";
+    if (!error) return;
+    if (announceDelay > 0) {
+        clearTimeout(liveRegionTimers.get(input));
+        liveRegionTimers.set(
+            input,
+            setTimeout(() => {
+                error.textContent = message ?? "";
+            }, announceDelay)
+        );
+    } else {
+        clearTimeout(liveRegionTimers.get(input));
+        error.textContent = message ?? "";
+    }
 };
 
 const handleFormSubmit = (e) => {
