@@ -11,6 +11,7 @@
     --c-bg: #f5f5f5;
 
     // sizes
+    --s-container-padding: 2rem;
     --s-header-height: 6.8rem;
 
     // fonts
@@ -36,6 +37,10 @@ body {
     width: 100%;
     max-width: 160rem;
     margin: 0 auto;
+
+    @media (width < $bp-tablet) {
+        padding: 0 var(--s-container-padding);
+    }
 
     &.is-shorter {
         max-width: 132rem;
