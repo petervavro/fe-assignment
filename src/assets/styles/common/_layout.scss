@@ -36,8 +36,11 @@ body {
 .l-container {
     width: 100%;
     max-width: 160rem;
-    padding: 0 var(--s-container-padding);
     margin: 0 auto;
+
+    @media (width < $bp-tablet) {
+        padding: 0 var(--s-container-padding);
+    }
 
     &.is-shorter {
         max-width: 132rem;

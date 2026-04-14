@@ -1,6 +1,7 @@
 import { html, nothing } from "lit-html";
 import { loadData } from "../dataLoader.js";
 import cartUrl from "../assets/images/cart-white.svg";
+import arrowRightUrl from "../assets/images/icon-arrow_right-white.svg";
 import heartUrl from "../assets/images/icon-heart-black.svg";
 import scaleUrl from "../assets/images/icon-scale-black.svg";
 
@@ -101,8 +102,8 @@ const productBadge = (badge) => html`
 `;
 
 // Product card action button
-const handleCompare = () => console.log("Compare clicked");
-const handleWishlist = () => console.log("Wishlist clicked");
+const handleCompare = () => {};
+const handleWishlist = () => {};
 
 const productActionBtn = (iconUrl, label, handler) => html`
     <button class="c-solution-product-card__action-btn" aria-label="${label}" @click=${handler}>
@@ -302,6 +303,53 @@ const solutionCta = (ctaBanner) => html`
     </div>
 `;
 
+// Category card
+const categoryCard = (category) => html`
+    <article class="c-solution-category-card">
+        <img
+            class="c-solution-category-card__image"
+            src="${category.imageUrl}"
+            alt="${category.name}"
+            loading="lazy"
+        />
+        <div class="c-solution-category-card__content">
+            <h3 class="c-solution-category-card__name">
+                <a class="c-solution-category-card__link" href="${category.link}"
+                    >${category.name}</a
+                >
+                ${category.productCount != null
+                    ? html`<span class="c-solution-category-card__count"
+                          >${category.productCount}</span
+                      >`
+                    : nothing}
+            </h3>
+            ${category.subcategories?.length
+                ? html`<ul class="c-solution-category-card__subcategories">
+                      ${category.subcategories.map(
+                          (sub) => html`
+                              <li class="c-solution-category-card__subcategory">
+                                  <a href="${sub.link}">${sub.name}</a>
+                              </li>
+                          `
+                      )}
+                  </ul>`
+                : nothing}
+            <a class="c-solution-category-card__cta" href="${category.link}">
+                ${category.ctaText}
+                <img src="${arrowRightUrl}" alt="" aria-hidden="true" />
+            </a>
+        </div>
+    </article>
+`;
+
+// Categories section
+const solutionCategories = (categories) => html`
+    <div class="c-solution-categories">
+        <h2 class="c-solution-categories__title">Top kategórie produktov</h2>
+        <div class="c-solution-categories__grid">${categories.map(categoryCard)}</div>
+    </div>
+`;
+
 // Main page template
 export const renderSolutionPage = (data) => {
     if (!data) {
@@ -336,8 +384,8 @@ export const renderSolutionPage = (data) => {
             </div>
 
             <div class="l-solution__categories">
-                <div class="l-container">
-                    <div class="c-solution-categories"></div>
+                <div class="l-container is-shorter">
+                    ${data.categories?.length ? solutionCategories(data.categories) : nothing}
                 </div>
             </div>
         </div>
