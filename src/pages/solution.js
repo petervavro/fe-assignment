@@ -270,7 +270,10 @@ const solutionBanner = (banner) => html`
 // Solution CTA section
 const solutionCta = (ctaBanner) => html`
     <div class="c-solution-cta">
-        <div class="c-solution-cta__image"></div>
+        <div
+            class="c-solution-cta__image"
+            style="${ctaBanner.imageUrl ? `background-image: url('${ctaBanner.imageUrl}')` : ""}"
+        ></div>
 
         <div class="c-solution-cta__overlay"></div>
 
