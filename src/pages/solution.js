@@ -346,14 +346,14 @@ const modalTemplate = () => html`
                     ></span>
                 </div>
                 <div class="c-modal__footer">
-                    <button class="c-modal__submit" type="submit">
-                        Získať tajnú ponuku
-                        <img src="${arrowRightUrl}" alt="" aria-hidden="true" />
-                    </button>
                     <p class="c-modal__legal">
                         Odoslaním formuláru súhlasíte<br />so
                         <a class="c-modal__legal-link" href="#">spracovaním osobných údajov</a>
                     </p>
+                    <button class="c-modal__submit" type="submit">
+                        Získať tajnú ponuku
+                        <img src="${arrowRightUrl}" alt="" aria-hidden="true" />
+                    </button>
                 </div>
             </form>
         </div>
@@ -363,7 +363,8 @@ const modalTemplate = () => html`
 let modalEl = null;
 let modalTrigger = null;
 
-const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+const FOCUSABLE =
+    'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
 const getFocusable = () => (modalEl ? [...modalEl.querySelectorAll(FOCUSABLE)] : []);
 

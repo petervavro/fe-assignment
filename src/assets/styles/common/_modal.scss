@@ -200,7 +200,7 @@ body.has-modal {
 
     &__footer {
         display: flex;
-        flex-direction: row;
+        flex-direction: row-reverse;
         gap: 2rem;
         align-items: center;
         justify-content: space-between;
