@@ -752,11 +752,6 @@ export const renderSolutionPage = (data) => {
         return html`<div class="l-solution">Loading...</div>`;
     }
 
-    console.log("data.banner:\n", data.banner);
-    console.log("data.ctaBanner:\n", data.ctaBanner);
-    console.log("data.products:\n", data.products);
-    console.log("data.categories:\n", data.categories);
-
     return html`
         <div class="l-solution">
             <div class="l-solution__banner">
