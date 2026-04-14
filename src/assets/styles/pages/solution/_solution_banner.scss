@@ -13,7 +13,6 @@
         background-image: url("../../../../../public/images/pages/solution/main-banner-bg.jpg");
         background-position: center;
         background-size: cover;
-        border-radius: 0.8rem;
     }
 
     &__overlay {
@@ -25,7 +24,6 @@
             rgb(0 0 0 / 20%) 50%,
             transparent 100%
         );
-        border-radius: 0.8rem;
     }
 
     &__content {
@@ -99,6 +97,8 @@
 
     @media (width <= 767px) {
         height: 42rem;
+        margin: -3.2rem -2rem;
+        border-radius: 0;
 
         &__overlay {
             background: linear-gradient(0deg, rgb(0 0 0 / 100%) 8%, rgb(0 0 0 / 0%) 52%);
