@@ -228,6 +228,7 @@ const modalSuccessTemplate = () => html`
                 <img src="${checkmarkUrl}" alt="" aria-hidden="true" width="56" height="56" />
                 <h3 id="modal-success-title" tabindex="-1">Ďakujeme!</h3>
                 <p>Váš záujem sme zaregistrovali. Čoskoro sa vám ozveme s tajnou ponukou.</p>
+                <button class="c-modal__dismiss" @click=${closeModal}>Zavrieť</button>
             </div>
         </div>
     </div>
