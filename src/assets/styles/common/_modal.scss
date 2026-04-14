@@ -139,6 +139,10 @@ body.has-modal {
         &.is-invalid {
             border-color: #dd1969;
         }
+
+        &.is-validating {
+            animation: input-validating 1s ease-in-out infinite;
+        }
     }
 
     &__select-wrap {
@@ -327,5 +331,16 @@ body.has-modal {
     to {
         opacity: 0;
         transform: translateY(-1.6rem);
+    }
+}
+
+@keyframes input-validating {
+    0%,
+    100% {
+        border-color: #cacaca;
+    }
+
+    50% {
+        border-color: #dd1969;
     }
 }

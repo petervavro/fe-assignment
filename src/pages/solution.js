@@ -46,12 +46,77 @@ const phoneCursorPos = (digitCount) => {
     return PHONE_PREFIX.length + digitCount + 2;
 };
 
+const hasError = (input) => input.getAttribute("aria-invalid") === "true";
+
+let emailDebounceTimer = null;
+
+const runEmailApiValidation = async (input, email) => {
+    if (emailValidating === email) return;
+    if (emailCache.has(email)) {
+        setFieldError(input, emailCache.get(email));
+        return;
+    }
+    input.classList.add("is-validating");
+    emailValidating = email;
+    const result = await validateEmail(email);
+    emailValidating = null;
+    input.classList.remove("is-validating");
+    if (input.value.trim() !== email) return;
+    const errorMsg = result.success ? null : result.message || "E-mail sa nepodarilo overiť.";
+    emailCache.set(email, errorMsg);
+    setFieldError(input, errorMsg);
+};
+
+const handleEmailInput = (e) => {
+    const input = e.currentTarget;
+    const email = input.value.trim();
+    clearTimeout(emailDebounceTimer);
+
+    if (!email) {
+        setFieldError(input, null);
+        return;
+    }
+
+    if (!EMAIL_REGEX.test(email)) {
+        setFieldError(input, "Zadajte platný e-mail.");
+        return;
+    }
+
+    setFieldError(input, null);
+    emailDebounceTimer = setTimeout(() => runEmailApiValidation(input, email), 600);
+};
+
+const handleEmailBlur = (e) => {
+    clearTimeout(emailDebounceTimer);
+    const input = e.currentTarget;
+    const email = input.value.trim();
+    if (email && EMAIL_REGEX.test(email)) runEmailApiValidation(input, email);
+};
+
+const handleNameInput = (e) => {
+    const input = e.currentTarget;
+    if (!hasError(input)) return;
+    setFieldError(input, input.value.trim() ? null : "Meno a priezvisko je povinné.");
+};
+
 const handlePhoneInput = (e) => {
     const input = e.currentTarget;
     const digits = getPhoneDigits(input.value);
     input.value = buildPhoneValue(digits);
     const pos = phoneCursorPos(digits.length);
     input.setSelectionRange(pos, pos);
+    if (hasError(input)) {
+        setFieldError(
+            input,
+            digits.length < PHONE_DIGIT_COUNT ? "Zadajte platné telefónne číslo." : null
+        );
+    }
+};
+
+const handleSourceChange = (e) => {
+    const input = e.currentTarget;
+    if (!hasError(input)) return;
+    setFieldError(input, input.value ? null : "Vyberte možnosť.");
 };
 
 const handlePhoneKeydown = (e) => {
@@ -85,38 +150,6 @@ const setFieldError = (input, message) => {
     const errorId = input.getAttribute("aria-describedby");
     const error = errorId ? document.getElementById(errorId) : null;
     if (error) error.textContent = message ?? "";
-};
-
-const handleEmailBlur = async (e) => {
-    const input = e.currentTarget;
-    const email = input.value.trim();
-
-    if (!email) {
-        setFieldError(input, null);
-        return;
-    }
-
-    if (!EMAIL_REGEX.test(email)) {
-        setFieldError(input, "Zadajte platný e-mail.");
-        return;
-    }
-
-    if (emailCache.has(email)) {
-        setFieldError(input, emailCache.get(email));
-        return;
-    }
-
-    if (emailValidating === email) return;
-
-    emailValidating = email;
-    const result = await validateEmail(email);
-    emailValidating = null;
-
-    if (input.value.trim() !== email) return;
-
-    const errorMsg = result.success ? null : result.message || "E-mail sa nepodarilo overiť.";
-    emailCache.set(email, errorMsg);
-    setFieldError(input, errorMsg);
 };
 
 const handleFormSubmit = (e) => {
@@ -194,6 +227,7 @@ const modalTemplate = () => html`
                         autocomplete="email"
                         aria-describedby="modal-email-error"
                         aria-invalid="false"
+                        @input=${handleEmailInput}
                         @blur=${handleEmailBlur}
                     />
                     <span
@@ -216,6 +250,7 @@ const modalTemplate = () => html`
                             autocomplete="name"
                             aria-describedby="modal-name-error"
                             aria-invalid="false"
+                            @input=${handleNameInput}
                         />
                         <span
                             id="modal-name-error"
@@ -262,6 +297,7 @@ const modalTemplate = () => html`
                             name="source"
                             aria-describedby="modal-source-error"
                             aria-invalid="false"
+                            @change=${handleSourceChange}
                         >
                             <option value="">Vyberte možnosť</option>
                             <option value="web">Priamo z vášho webu</option>
