@@ -1,5 +1,10 @@
 # FE Assignment
 
+## Live Demo
+
+The application is deployed and accessible here:  
+👉 https://fe-assignment-tau.vercel.app/
+
 A clean frontend assignment starter template built with Vite, vanilla JavaScript, and SCSS. Features a two-page application with routing, static layout, and configurable data loading modes.
 
 ## Prerequisites
