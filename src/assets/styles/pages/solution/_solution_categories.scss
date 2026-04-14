@@ -83,7 +83,13 @@
     &__overlay {
         position: absolute;
         inset: 0;
-        background: linear-gradient(0deg, rgb(0 0 0 / 80%) 0%, rgb(0 0 0 / 0%) 60%);
+        background: linear-gradient(
+            0deg,
+            rgb(0 0 0 / 80%) 0%,
+            rgb(0 0 0 / 80%) 15%,
+            rgb(0 0 0 / 60%) 40%,
+            rgb(0 0 0 / 0%) 100%
+        );
     }
 
     &__content {
