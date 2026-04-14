@@ -15,7 +15,7 @@
     &__grid {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
-        gap: 1.6rem;
+        gap: 1.8rem;
 
         @media (width < $bp-desktop) {
             grid-template-columns: repeat(2, 1fr);
@@ -29,6 +29,8 @@
 
 .c-solution-category-card {
     position: relative;
+    display: flex;
+    align-items: flex-end;
     min-height: 26rem;
     overflow: hidden;
     border-radius: 0.8rem;
