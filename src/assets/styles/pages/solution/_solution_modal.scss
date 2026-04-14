@@ -1,0 +1,250 @@
+@use "./../../init" as *;
+
+.c-modal {
+    &__header {
+        display: flex;
+        flex-direction: row;
+        gap: 1.6rem;
+        align-items: flex-end;
+        justify-content: space-between;
+        margin-bottom: 3.2rem;
+    }
+
+    &__title {
+        margin: 0;
+        font-family: "Wix Madefor Display", sans-serif;
+        font-size: 2.4rem;
+        font-weight: 800;
+        line-height: 1.4;
+        color: #070216;
+    }
+
+    &__required {
+        flex-shrink: 0;
+        font-family: "DM Sans", sans-serif;
+        font-size: 1.4rem;
+        font-weight: 500;
+        line-height: 1.5;
+        color: #dd1969;
+    }
+
+    &__form {
+        display: flex;
+        flex-direction: column;
+        gap: 2.4rem;
+    }
+
+    &__row {
+        display: flex;
+        gap: 1.6rem;
+
+        @media (width < $bp-tablet) {
+            flex-direction: column;
+        }
+    }
+
+    &__field {
+        position: relative;
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        gap: 0.4rem;
+    }
+
+    &__label {
+        font-family: "DM Sans", sans-serif;
+        font-size: 1.5rem;
+        font-weight: 700;
+        line-height: 1.5;
+        color: #070216;
+
+        &--accent {
+            color: #dd1969;
+        }
+    }
+
+    &__required-mark {
+        color: #dd1969;
+    }
+
+    &__input {
+        width: 100%;
+        height: 4.8rem;
+        padding: 1.5rem 2rem;
+        font-family: "DM Sans", sans-serif;
+        font-size: 1.4rem;
+        font-weight: 500;
+        color: #555;
+        background: #fff;
+        border: 1px solid #cacaca;
+        border-radius: 0.4rem;
+
+        &:focus {
+            border-color: #070216;
+            outline: none;
+        }
+
+        &.is-invalid {
+            border-color: #dd1969;
+        }
+
+        &.is-validating {
+            animation: input-validating 1s ease-in-out infinite;
+        }
+    }
+
+    &__select-wrap {
+        position: relative;
+
+        &::after {
+            position: absolute;
+            top: 50%;
+            right: 1.6rem;
+            width: 1.8rem;
+            height: 1.8rem;
+            pointer-events: none;
+            content: "";
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18' fill='none'%3E%3Cpath d='M3 6l6 6 6-6' stroke='%23DD1969' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-size: contain;
+            transform: translateY(-50%);
+        }
+    }
+
+    &__select {
+        width: 100%;
+        height: 4.8rem;
+        padding: 1.5rem 2rem;
+        font-family: "DM Sans", sans-serif;
+        font-size: 1.4rem;
+        font-weight: 500;
+        color: #555;
+        appearance: none;
+        background: #fff;
+        border: 1px solid #cacaca;
+        border-radius: 0.4rem;
+
+        &:focus {
+            border-color: #070216;
+            outline: none;
+        }
+
+        &.is-invalid {
+            border-color: #dd1969;
+        }
+    }
+
+    &__error {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        padding-top: 0.4rem;
+        font-family: "DM Sans", sans-serif;
+        font-size: 1.2rem;
+        font-weight: 500;
+        line-height: 1.5;
+        color: #dd1969;
+    }
+
+    &__footer {
+        display: flex;
+        flex-direction: row-reverse;
+        gap: 2rem;
+        align-items: center;
+        justify-content: space-between;
+
+        @media (width < $bp-tablet) {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+    }
+
+    &__submit {
+        display: inline-flex;
+        gap: 0.6rem;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.5rem 3.2rem;
+        font-family: "Wix Madefor Display", sans-serif;
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: #fff;
+        white-space: nowrap;
+        cursor: pointer;
+        background: #dd1969;
+        border: none;
+        border-radius: 0.4rem;
+        box-shadow: 0 1px 2px 0 rgb(16 24 40 / 5%);
+        transition: background 0.2s ease;
+
+        img {
+            width: 1.2rem;
+            height: 1.2rem;
+            margin-right: 0.36rem;
+        }
+
+        &:hover {
+            background: #c01559;
+        }
+
+        &:active {
+            background: #a01249;
+        }
+
+        @media (width < $bp-tablet) {
+            width: 100%;
+        }
+    }
+
+    &__legal {
+        font-family: "DM Sans", sans-serif;
+        font-size: 1.4rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #070216;
+    }
+
+    &__legal-link {
+        color: #dd1969;
+        text-decoration: underline;
+
+        &:hover {
+            color: #070216;
+        }
+    }
+
+    &__success {
+        display: flex;
+        flex-direction: column;
+        gap: 1.6rem;
+        align-items: center;
+        padding: 4rem 0 2rem;
+        text-align: center;
+
+        h3 {
+            margin: 0;
+            font-family: "Wix Madefor Display", sans-serif;
+            font-size: 2rem;
+            font-weight: 800;
+            color: #070216;
+        }
+
+        p {
+            margin: 0;
+            font-family: "DM Sans", sans-serif;
+            font-size: 1.6rem;
+            color: #555;
+        }
+    }
+}
+
+@keyframes input-validating {
+    0%,
+    100% {
+        border-color: #cacaca;
+    }
+
+    50% {
+        border-color: #dd1969;
+    }
+}
