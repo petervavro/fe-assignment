@@ -12,11 +12,17 @@ body.has-modal {
     align-items: center;
     justify-content: center;
     padding: 2rem;
+    overflow-y: auto;
     background: rgb(0 0 0 / 50%);
     animation: modal-overlay-in 0.2s ease;
 
     &.is-closing {
         animation: modal-overlay-out 0.2s ease forwards;
+    }
+
+    @media (width < $bp-tablet) {
+        align-items: flex-start;
+        padding: 1.2rem;
     }
 }
 
@@ -31,6 +37,10 @@ body.has-modal {
 
     .c-modal-overlay.is-closing & {
         animation: modal-out 0.2s ease forwards;
+    }
+
+    @media (width < $bp-tablet) {
+        padding: 2.4rem;
     }
 
     &__close {
