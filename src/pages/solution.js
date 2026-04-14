@@ -78,12 +78,12 @@ const handleEmailInput = (e) => {
     }
 
     if (!EMAIL_REGEX.test(email)) {
-        setFieldError(input, "Zadajte platný e-mail.");
+        setFieldError(input, "Zadajte platný e-mail.", { announceDelay: EMAIL_DEBOUNCE_MS });
         return;
     }
 
     setFieldError(input, null);
-    emailDebounceTimer = setTimeout(() => runEmailApiValidation(input, email), 600);
+    emailDebounceTimer = setTimeout(() => runEmailApiValidation(input, email), EMAIL_DEBOUNCE_MS);
 };
 
 const handleEmailBlur = (e) => {
@@ -142,6 +142,7 @@ const handlePhoneFocus = (e) => {
 };
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const EMAIL_DEBOUNCE_MS = 600;
 const emailCache = new Map();
 let emailValidating = null;
 
