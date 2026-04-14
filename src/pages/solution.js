@@ -1,9 +1,10 @@
 import { html, nothing } from "lit-html";
 import { loadData } from "../dataLoader.js";
 import cartUrl from "../assets/images/cart-white.svg";
-import arrowRightUrl from "../assets/images/icon-arrow_right-white.svg";
+import arrowRightUrl from "../assets/images/icon-arrow_right-white_v2.svg";
 import heartUrl from "../assets/images/icon-heart-black.svg";
 import scaleUrl from "../assets/images/icon-scale-black.svg";
+import closeUrl from "../assets/images/icon-close-black.svg";
 
 /**
  * Solution Page
@@ -24,10 +25,94 @@ const starIcon = html`<svg
     />
 </svg>`;
 
+// Modal template
+const modalTemplate = () => html`
+    <div class="c-modal-overlay">
+        <div class="c-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+            <button class="c-modal__close" aria-label="Zavrieť">
+                <img src="${closeUrl}" alt="" aria-hidden="true" />
+            </button>
+            <div class="c-modal__header">
+                <h2 class="c-modal__title" id="modal-title">
+                    Tajná ponuka produktov<br />Dewalt len pre vás
+                </h2>
+                <span class="c-modal__required">* povinné polia</span>
+            </div>
+            <form class="c-modal__form" novalidate>
+                <div class="c-modal__field">
+                    <label class="c-modal__label" for="modal-email"
+                        >E-mail <span class="c-modal__required-mark">*</span></label
+                    >
+                    <input
+                        class="c-modal__input"
+                        id="modal-email"
+                        name="email"
+                        type="email"
+                        autocomplete="email"
+                    />
+                </div>
+                <div class="c-modal__row">
+                    <div class="c-modal__field">
+                        <label class="c-modal__label" for="modal-name"
+                            >Meno a priezvisko <span class="c-modal__required-mark">*</span></label
+                        >
+                        <input
+                            class="c-modal__input"
+                            id="modal-name"
+                            name="name"
+                            type="text"
+                            autocomplete="name"
+                        />
+                    </div>
+                    <div class="c-modal__field">
+                        <label class="c-modal__label" for="modal-phone"
+                            >Telefónne číslo (mobil)
+                            <span class="c-modal__required-mark">*</span></label
+                        >
+                        <input
+                            class="c-modal__input"
+                            id="modal-phone"
+                            name="phone"
+                            type="tel"
+                            autocomplete="tel"
+                            placeholder="+421"
+                        />
+                    </div>
+                </div>
+                <div class="c-modal__field">
+                    <label class="c-modal__label" for="modal-source"
+                        >Odkiaľ ste sa o tejto ponuke dozvedeli?
+                        <span class="c-modal__required-mark">*</span></label
+                    >
+                    <div class="c-modal__select-wrap">
+                        <select class="c-modal__select" id="modal-source" name="source">
+                            <option value="">Vyberte možnosť</option>
+                            <option value="web">Priamo z vášho webu</option>
+                            <option value="social">Sociálne siete</option>
+                            <option value="friend">Od priateľa / kolegu</option>
+                            <option value="other">Iné</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="c-modal__footer">
+                    <button class="c-modal__submit" type="submit">
+                        Získať tajnú ponuku
+                        <img src="${arrowRightUrl}" alt="" aria-hidden="true" />
+                    </button>
+                    <p class="c-modal__legal">
+                        Odoslaním formuláru súhlasíte<br />so
+                        <a class="c-modal__legal-link" href="#">spracovaním osobných údajov</a>
+                    </p>
+                </div>
+            </form>
+        </div>
+    </div>
+`;
+
 // CTA button click handler
 const handleCtaClick = () => {
     console.log("CTA button clicked");
-    // TODO: Implement email form/modal
+    // TODO: open modal
 };
 
 // Banner button click handler
@@ -392,6 +477,8 @@ export const renderSolutionPage = (data) => {
                     ${data.categories?.length ? solutionCategories(data.categories) : nothing}
                 </div>
             </div>
+
+            ${modalTemplate()}
         </div>
     `;
 };
