@@ -102,8 +102,8 @@ const productBadge = (badge) => html`
 `;
 
 // Product card action button
-const handleCompare = () => console.log("Compare clicked");
-const handleWishlist = () => console.log("Wishlist clicked");
+const handleCompare = () => {};
+const handleWishlist = () => {};
 
 const productActionBtn = (iconUrl, label, handler) => html`
     <button class="c-solution-product-card__action-btn" aria-label="${label}" @click=${handler}>
